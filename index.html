@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETO Semester II — Operasional Permesinan Kapal | Rafael Sukirno, CE</title>
+<style>
+  :root{
+    --bg:#081422; --bg2:#0d1f33; --card:#122a44; --card2:#16345a;
+    --accent:#22d3ee; --accent2:#38bdf8; --gold:#fbbf24;
+    --text:#e6eef8; --muted:#8fa7c0; --border:#1e3a5f;
+    --success:#34d399; --danger:#f87171; --purple:#a78bfa;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #103155 0%, transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, #0d2a4a 0%, transparent 50%),
+      var(--bg);
+    color:var(--text); min-height:100vh; line-height:1.6; overflow-x:hidden;
+  }
+
+  /* HEADER */
+  header{
+    padding:26px 20px 18px; text-align:center;
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg, rgba(13,31,51,.9), rgba(8,20,34,.5));
+    backdrop-filter:blur(8px);
+  }
+  .badge-top{
+    display:inline-block; font-size:11px; letter-spacing:3px; color:var(--accent);
+    border:1px solid rgba(34,211,238,.4); padding:4px 14px; border-radius:99px;
+    margin-bottom:12px; background:rgba(34,211,238,.08);
+  }
+  header h1{
+    font-size:clamp(20px,3vw,30px); font-weight:800; letter-spacing:.5px;
+    background:linear-gradient(90deg,#67e8f9,#38bdf8,#818cf8);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  header p{color:var(--muted); font-size:13.5px; margin-top:8px;}
+  header .meta{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:14px;}
+  header .meta span{
+    font-size:11.5px; background:var(--card); border:1px solid var(--border);
+    padding:4px 12px; border-radius:99px; color:var(--muted);
+  }
+  header .meta span b{color:var(--accent2); font-weight:600}
+  header .meta span.dosen{background:linear-gradient(135deg,#7c2d12,#9a3412); border-color:#fbbf24; color:#fef3c7}
+  header .meta span.dosen b{color:#fde68a}
+
+  /* NAVBAR */
+  nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(8,20,34,.92); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border); padding:10px 12px;
+    display:flex; gap:8px; overflow-x:auto; scrollbar-width:thin;
+  }
+  nav::-webkit-scrollbar{height:6px}
+  nav::-webkit-scrollbar-thumb{background:#1e3a5f; border-radius:9px}
+  .nav-item{
+    flex:0 0 auto; padding:9px 16px; border-radius:10px;
+    border:1px solid var(--border); background:var(--card); color:var(--muted);
+    font-size:12.5px; font-weight:600; cursor:pointer; transition:.22s;
+    white-space:nowrap; display:flex; align-items:center; gap:7px;
+    font-family:inherit;
+  }
+  .nav-item .letter{
+    background:#0a1a2c; color:var(--accent); font-size:10.5px; padding:2px 7px;
+    border-radius:6px; font-weight:800; border:1px solid rgba(34,211,238,.25);
+  }
+  .nav-item:hover{border-color:rgba(34,211,238,.5); color:var(--text); transform:translateY(-1px)}
+  .nav-item.active{
+    background:linear-gradient(135deg,#0891b2,#0e7490); color:#fff;
+    border-color:rgba(34,211,238,.6); box-shadow:0 6px 18px -6px rgba(34,211,238,.5);
+  }
+  .nav-item.active .letter{background:rgba(0,0,0,.3); color:#fff; border-color:transparent}
+
+  /* TOOLBAR */
+  .toolbar{
+    max-width:1150px; margin:18px auto 0; padding:0 18px;
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+  }
+  .search-box{flex:1; min-width:220px; position:relative}
+  .search-box input{
+    width:100%; padding:11px 16px 11px 40px; background:var(--card);
+    border:1px solid var(--border); border-radius:10px; color:var(--text);
+    font-size:13.5px; outline:none; transition:.2s; font-family:inherit;
+  }
+  .search-box input:focus{border-color:var(--accent); box-shadow:0 0 0 3px rgba(34,211,238,.12)}
+  .search-box::before{
+    content:"🔍"; position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    font-size:13px; opacity:.6;
+  }
+  .btn-mini{
+    padding:11px 16px; background:var(--card); border:1px solid var(--border);
+    color:var(--muted); border-radius:10px; font-size:12.5px; font-weight:600;
+    cursor:pointer; transition:.2s; font-family:inherit;
+  }
+  .btn-mini:hover{border-color:var(--accent); color:var(--accent)}
+
+  /* MAIN */
+  main{max-width:1150px; margin:0 auto; padding:22px 18px 90px}
+  .section-head{margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed var(--border)}
+  .section-head .kicker{color:var(--accent); font-size:11.5px; letter-spacing:2px; font-weight:700; text-transform:uppercase}
+  .section-head h2{font-size:clamp(17px,2.3vw,22px); margin-top:6px; font-weight:700}
+  .section-head .count{color:var(--muted); font-size:12.5px; margin-top:6px}
+
+  /* CARDS */
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:14px}
+  .qcard{
+    background:linear-gradient(160deg,var(--card),var(--card2));
+    border:1px solid var(--border); border-radius:14px;
+    padding:16px 16px 14px; cursor:pointer;
+    transition:.25s cubic-bezier(.3,.8,.4,1); position:relative; overflow:hidden;
+    display:flex; flex-direction:column; gap:10px; text-align:left;
+    font-family:inherit; color:var(--text);
+  }
+  .qcard::before{
+    content:""; position:absolute; inset:0 auto 0 0; width:3px;
+    background:linear-gradient(180deg,var(--accent),var(--accent2));
+    opacity:.55; transition:.25s;
+  }
+  .qcard:hover{
+    transform:translateY(-3px); border-color:rgba(34,211,238,.5);
+    box-shadow:0 14px 30px -14px rgba(34,211,238,.35);
+  }
+  .qcard:hover::before{opacity:1; width:4px}
+  .qcard .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    background:#0a1a2c; color:var(--accent);
+    border:1px solid rgba(34,211,238,.3); font-size:11px; font-weight:800;
+    padding:3px 9px; border-radius:7px; width:fit-content; letter-spacing:.5px;
+  }
+  .qcard .qtext{font-size:13.5px; font-weight:600; line-height:1.55; color:#dbe7f5; flex:1}
+  .qcard .hint{
+    font-size:10.5px; color:var(--muted); letter-spacing:.5px;
+    display:flex; align-items:center; gap:5px;
+    border-top:1px dashed var(--border); padding-top:9px;
+  }
+  .qcard .hint::before{content:"👁"; font-size:11px}
+  .qcard .tags{display:flex; gap:5px; flex-wrap:wrap}
+  .qcard .tag{
+    font-size:9.5px; padding:2px 7px; border-radius:5px;
+    background:rgba(34,211,238,.1); color:var(--accent);
+    border:1px solid rgba(34,211,238,.25); letter-spacing:.3px; font-weight:700;
+  }
+  .qcard .tag.formula{background:rgba(251,191,36,.1); color:var(--gold); border-color:rgba(251,191,36,.3)}
+  .qcard .tag.eto{background:rgba(167,139,250,.1); color:var(--purple); border-color:rgba(167,139,250,.3)}
+
+  /* MODAL */
+  .modal{
+    position:fixed; inset:0; z-index:999; display:none;
+    align-items:center; justify-content:center; padding:16px;
+  }
+  .modal.open{display:flex; animation:fadeIn .2s ease}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .backdrop{position:absolute; inset:0; background:rgba(3,10,18,.78); backdrop-filter:blur(6px)}
+  .panel{
+    position:relative; width:100%; max-width:820px; max-height:94vh;
+    display:flex; flex-direction:column;
+    background:linear-gradient(180deg,#0f2440,#0b1a2e);
+    border:1px solid rgba(34,211,238,.25); border-radius:18px;
+    box-shadow:0 40px 80px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(34,211,238,.06) inset;
+    animation:pop .28s cubic-bezier(.3,1.3,.5,1); overflow:hidden;
+  }
+  @keyframes pop{from{transform:scale(.94) translateY(14px); opacity:0} to{transform:scale(1) translateY(0); opacity:1}}
+  .panel-head{
+    display:flex; align-items:center; gap:10px; padding:14px 18px;
+    border-bottom:1px solid var(--border); background:rgba(10,26,44,.6);
+  }
+  .panel-head .pill{
+    font-size:11px; font-weight:800; letter-spacing:.5px;
+    padding:4px 11px; border-radius:99px;
+    background:rgba(34,211,238,.12);
+    border:1px solid rgba(34,211,238,.35); color:var(--accent);
+  }
+  .panel-head .sec{font-size:11px; color:var(--muted); letter-spacing:.4px}
+  .panel-head .spacer{flex:1}
+  .close-x{
+    background:transparent; border:1px solid var(--border); color:var(--muted);
+    width:32px; height:32px; border-radius:9px; cursor:pointer; font-size:15px;
+    transition:.2s; display:grid; place-items:center; font-family:inherit;
+  }
+  .close-x:hover{background:rgba(248,113,113,.12); color:#fca5a5; border-color:rgba(248,113,113,.4)}
+
+  .tabs{
+    display:flex; gap:6px; padding:12px 18px 0;
+    border-bottom:1px solid var(--border); background:rgba(10,26,44,.35);
+    overflow-x:auto;
+  }
+  .tab{
+    position:relative; padding:10px 18px; background:transparent;
+    border:1px solid transparent; border-bottom:none; color:var(--muted);
+    font-size:12.5px; font-weight:700; cursor:pointer;
+    border-radius:10px 10px 0 0; transition:.2s; font-family:inherit;
+    display:flex; align-items:center; gap:7px; letter-spacing:.3px;
+    margin-bottom:-1px; white-space:nowrap;
+  }
+  .tab:hover{color:var(--text); background:rgba(34,211,238,.05)}
+  .tab.active{
+    background:linear-gradient(180deg,rgba(34,211,238,.14),transparent);
+    border-color:var(--border); border-bottom:1px solid #0b1a2e; color:var(--accent);
+  }
+  .tab.active::after{
+    content:""; position:absolute; left:14px; right:14px; top:0; height:2px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:2px;
+  }
+  .tab .ico{font-size:13px}
+  .tab.link{border-radius:9px; border:1px solid var(--border); margin-bottom:4px}
+  .tab.link:hover{border-color:var(--accent)}
+
+  .panel-body{
+    padding:22px 22px 8px; overflow-y:auto; flex:1; scrollbar-width:thin;
+  }
+  .panel-body::-webkit-scrollbar{width:8px}
+  .panel-body::-webkit-scrollbar-thumb{background:#1e3a5f; border-radius:9px}
+
+  .q-block .label{
+    font-size:10.5px; letter-spacing:2px; font-weight:800;
+    color:var(--accent); text-transform:uppercase; margin-bottom:10px;
+  }
+  .q-block .text{font-size:16px; font-weight:600; line-height:1.6; color:#eaf2fc}
+  .a-block .label{
+    font-size:10.5px; letter-spacing:2px; font-weight:800;
+    color:var(--gold); text-transform:uppercase; margin-bottom:10px;
+  }
+  .a-block .text{
+    font-size:14.5px; line-height:1.8; color:#cfe0f2;
+    background:linear-gradient(160deg,rgba(251,191,36,.06),transparent);
+    border-left:3px solid var(--gold);
+    padding:16px 18px; border-radius:0 10px 10px 0;
+  }
+  .a-block .text ul,.a-block .text ol{margin:10px 0 10px 20px}
+  .a-block .text li{margin-bottom:7px}
+  .a-block .text b{color:#fcd34d}
+  .a-block .text em{color:#67e8f9; font-style:normal; font-weight:600}
+  .a-block .text p{margin-bottom:10px}
+  .a-block .text h4{
+    color:var(--accent); margin:14px 0 8px; font-size:13.5px;
+    letter-spacing:.3px; text-transform:uppercase;
+  }
+  .a-block .text code{
+    background:rgba(34,211,238,.12); color:#67e8f9;
+    padding:2px 8px; border-radius:6px; font-size:13px;
+    font-family:'Consolas','Monaco',monospace;
+  }
+  .a-block .text .formula-box{
+    background:linear-gradient(160deg,#0a1a2c,#0f2440);
+    border:1px solid rgba(251,191,36,.35); border-radius:10px;
+    padding:14px 16px; margin:12px 0;
+    font-family:'Consolas',monospace; font-size:14px; color:#fde68a;
+    text-align:center; letter-spacing:.5px; line-height:1.9;
+  }
+  .a-block .text .formula-box small{color:#94a3b8; font-size:11.5px; display:block; margin-top:8px; font-family:inherit}
+  .a-block .text .note{
+    background:rgba(34,211,238,.06); border-left:3px solid var(--accent);
+    padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0;
+    font-size:13.5px;
+  }
+  .a-block .text .warn{
+    background:rgba(248,113,113,.08); border-left:3px solid var(--danger);
+    padding:10px 14px; border-radius:0 8px 8px 0; margin:12px 0;
+    font-size:13.5px;
+  }
+  .a-block .text .diagram{
+    background:#0a1a2c; border:1px solid var(--border);
+    border-radius:8px; padding:14px; margin:12px 0;
+    font-family:'Consolas',monospace; font-size:12px;
+    color:#67e8f9; white-space:pre; overflow-x:auto; line-height:1.5;
+  }
+
+  /* LINKS SECTION */
+  .links-block{
+    margin-top:20px; padding:16px;
+    background:linear-gradient(160deg,rgba(34,211,238,.06),rgba(129,140,248,.05));
+    border:1px solid rgba(34,211,238,.2); border-radius:12px;
+  }
+  .links-block .lbl{
+    font-size:10.5px; letter-spacing:2px; font-weight:800;
+    color:var(--accent); text-transform:uppercase; margin-bottom:12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .links-block .lbl::before{content:"🔗"; font-size:13px}
+  .link-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:8px}
+  .ext-link{
+    display:flex; align-items:center; gap:9px; padding:9px 12px;
+    background:var(--card); border:1px solid var(--border);
+    border-radius:9px; text-decoration:none; color:var(--text);
+    font-size:12px; font-weight:600; transition:.2s;
+  }
+  .ext-link:hover{
+    transform:translateY(-2px); border-color:var(--accent);
+    background:var(--card2); box-shadow:0 8px 18px -10px rgba(34,211,238,.4);
+  }
+  .ext-link .ic{
+    width:26px; height:26px; border-radius:6px;
+    display:grid; place-items:center; font-size:14px;
+    background:rgba(255,255,255,.05); flex-shrink:0;
+  }
+  .ext-link .ic.google{background:#4285F410; color:#4285F4}
+  .ext-link .ic.youtube{background:#FF000015; color:#FF0000}
+  .ext-link .ic.pinterest{background:#E6002310; color:#E60023}
+  .ext-link .ic.image{background:#22d3ee15; color:#22d3ee}
+  .ext-link .ic.wiki{background:#ffffff10; color:#e6eef8}
+  .ext-link .tx{display:flex; flex-direction:column; line-height:1.3}
+  .ext-link .tx small{font-size:10px; color:var(--muted); font-weight:500}
+
+  .empty-hint{text-align:center; padding:34px 16px; color:var(--muted)}
+  .empty-hint .icon{font-size:34px; display:block; margin-bottom:10px; opacity:.5}
+
+  .panel-foot{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:12px 18px; border-top:1px solid var(--border); background:rgba(10,26,44,.6);
+  }
+  .nav-btn{
+    padding:9px 15px; background:var(--card); border:1px solid var(--border);
+    color:var(--text); border-radius:9px; font-size:12.5px; font-weight:600;
+    cursor:pointer; transition:.2s; font-family:inherit;
+    display:flex; align-items:center; gap:6px;
+  }
+  .nav-btn:hover:not(:disabled){border-color:var(--accent); color:var(--accent); transform:translateY(-1px)}
+  .nav-btn:disabled{opacity:.35; cursor:not-allowed}
+  .progress-text{font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums}
+
+  /* EXTRA TASKS */
+  .task-list{display:grid; gap:14px}
+  .task-item{
+    background:linear-gradient(160deg,var(--card),var(--card2));
+    border:1px solid var(--border); border-radius:14px;
+    padding:18px 20px; border-left:3px solid var(--accent);
+  }
+  .task-item h4{
+    font-size:14px; color:var(--accent); margin-bottom:8px;
+    display:flex; align-items:center; gap:9px;
+  }
+  .task-item h4 .n{
+    background:rgba(34,211,238,.12); border:1px solid rgba(34,211,238,.3);
+    width:24px; height:24px; border-radius:8px; display:grid; place-items:center;
+    font-size:12px; font-weight:800;
+  }
+  .task-item p{font-size:13.5px; color:#c8d8ea}
+
+  /* STATS */
+  .stats{
+    max-width:1150px; margin:14px auto 0; padding:0 18px;
+    display:flex; flex-wrap:wrap; gap:12px; align-items:center;
+    font-size:12px; color:var(--muted);
+  }
+  .bar{
+    flex:1; min-width:160px; height:6px; background:var(--card);
+    border:1px solid var(--border); border-radius:99px; overflow:hidden;
+  }
+  .bar > i{
+    display:block; height:100%;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    width:0%; transition:.4s;
+  }
+
+  /* FOOTER */
+  footer{
+    text-align:center; padding:22px 18px; color:var(--muted);
+    font-size:11.5px; border-top:1px solid var(--border);
+    background:rgba(10,26,44,.4);
+  }
+  footer b{color:var(--gold)}
+  footer .hline{display:block; margin-top:6px; color:#4a6180; font-size:10.5px}
+
+  @media(max-width:600px){
+    header{padding:22px 14px 14px}
+    .panel{max-height:96vh; border-radius:14px}
+    .qcard .qtext{font-size:13px}
+    .panel-body{padding:18px 16px 8px}
+    .q-block .text{font-size:14.5px}
+    .a-block .text{font-size:13.5px}
+    .link-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge-top">POLTEKPEL · ETO · SEMESTER II</div>
+  <h1>Operasional Permesinan Kapal</h1>
+  <p>100 Soal &amp; Jawaban Terperinci — Taruna Elektro Pelayaran (ETO)</p>
+  <div class="meta">
+    <span>📚 <b>Mata Kuliah</b> Operasional Permesinan Kapal</span>
+    <span class="dosen">👨‍🏫 <b>Dosen Pengampu</b> Rafael Sukirno, CE</span>
+    <span>⚓ <b>Program</b> Elektro Pelayaran (ETO)</span>
+  </div>
+</header>
+
+<nav id="navbar"></nav>
+
+<div class="stats">
+  <span>📖 <b id="stat-now">Bagian A</b></span>
+  <span id="stat-count">10 soal</span>
+  <div class="bar"><i id="stat-bar"></i></div>
+  <span id="stat-label">0 / 100 soal dibuka</span>
+</div>
+
+<div class="toolbar">
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Cari soal, rumus, kata kunci, atau nomor...">
+  </div>
+  <button class="btn-mini" id="btn-reset">↺ Reset Progres</button>
+</div>
+
+<main id="main"></main>
+
+<footer>
+  Disusun oleh <b>Rafael Sukirno, CE</b> — Dosen Pengampu Mata Kuliah Operasional Permesinan Kapal
+  <span class="hline">Program Studi Elektro Pelayaran (ETO) · Semester II · Politeknik Pelayaran</span>
+</footer>
+
+<!-- MODAL -->
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="backdrop" id="backdrop"></div>
+  <div class="panel">
+    <div class="panel-head">
+      <span class="pill" id="m-num">Soal #1</span>
+      <span class="sec" id="m-sec">Bagian A</span>
+      <span class="spacer"></span>
+      <button class="close-x" id="m-close" title="Tutup (Esc)">✕</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" id="tab-q-btn"><span class="ico">📖</span> Soal</button>
+      <button class="tab" id="tab-a-btn"><span class="ico">💡</span> Jawaban</button>
+      <button class="tab link" id="tab-l-btn"><span class="ico">🔗</span> Referensi</button>
+    </div>
+
+    <div class="panel-body">
+      <div id="view-q" class="q-block">
+        <div class="label">Pertanyaan</div>
+        <div class="text" id="m-q"></div>
+      </div>
+      <div id="view-a" class="a-block" style="display:none">
+        <div class="label">Jawaban Terperinci</div>
+        <div class="text" id="m-a"></div>
+      </div>
+      <div id="view-l" style="display:none">
+        <div class="links-block">
+          <div class="lbl">Sumber Belajar &amp; Referensi</div>
+          <div class="link-grid" id="m-links"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-foot">
+      <button class="nav-btn" id="m-prev">◀ Sebelumnya</button>
+      <span class="progress-text" id="m-prog">1 / 100</span>
+      <button class="nav-btn" id="m-next">Selanjutnya ▶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   LINK HELPERS
+   ========================================================= */
+function gLink(q){ return 'https://www.google.com/search?q=' + encodeURIComponent(q); }
+function yLink(q){ return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q); }
+function pLink(q){ return 'https://id.pinterest.com/search/pins/?q=' + encodeURIComponent(q); }
+function iLink(q){ return 'https://www.google.com/search?tbm=isch&q=' + encodeURIComponent(q); }
+function wLink(q){ return 'https://en.wikipedia.org/wiki/Special:Search?search=' + encodeURIComponent(q); }
+
+function defaultLinks(topic, extra){
+  const arr = [
+    {type:'google', q:topic, label:'Google'},
+    {type:'youtube', q:topic + ' marine engine', label:'YouTube'},
+    {type:'pinterest', q:topic + ' ship engine', label:'Pinterest'},
+    {type:'image', q:topic + ' diagram', label:'Google Images'},
+    {type:'wiki', q:topic, label:'Wikipedia'}
+  ];
+  return extra ? arr.concat(extra) : arr;
+}
+
+/* =========================================================
+   DATA SOAL — 100 SOAL DENGAN JAWABAN TERPERINCI
+   ========================================================= */
+const SECTIONS = [
+/* ============ BAGIAN A ============ */
+{
+  id:"A", short:"Dasar", title:"Dasar Operasional Permesinan Kapal", range:"1–10",
+  questions:[
+    {n:1, q:"Apa yang dimaksud dengan Operasional Permesinan Kapal?",
+     a:`<p><b>Operasional Permesinan Kapal</b> adalah rangkaian kegiatan <em>mengoperasikan, memantau, mengendalikan, dan memelihara</em> seluruh mesin dan peralatan kapal agar bekerja aman, efisien, dan andal selama pelayaran.</p>
+        <h4>Ruang Lingkup</h4>
+        <ul>
+          <li><b>Persiapan (Pre-operation)</b> — cek level oli, bahan bakar, air pendingin, dan kelistrikan.</li>
+          <li><b>Pengoperasian (Operation)</b> — start, sinkronisasi, pembebanan bertahap, pantau parameter.</li>
+          <li><b>Pemantauan (Monitoring)</b> — tekanan, suhu, getaran, arus, RPM.</li>
+          <li><b>Pemeliharaan (Maintenance)</b> — sesuai PMS (Planned Maintenance System).</li>
+          <li><b>Penanganan Darurat (Emergency Response)</b> — alarm, trip, blackout, kebakaran.</li>
+        </ul>
+        <div class="note"><b>Peran ETO:</b> memastikan seluruh instrumen, sensor, sistem kontrol, dan alarm bekerja benar sehingga operator dapat mengambil keputusan tepat.</div>`,
+     formula:`<b>Reliabilitas Sistem:</b><br>MTBF = Total Waktu Operasi ÷ Jumlah Kegagalan<br><small>MTBF = Mean Time Between Failures</small>`,
+     tags:['dasar','eto'],
+     links:defaultLinks('ship engine room operation')},
+
+    {n:2, q:"Apa tugas utama seorang ETO (Electro-Technical Officer)?",
+     a:`<p><b>ETO</b> bertanggung jawab atas pengoperasian, pemeliharaan, dan perbaikan peralatan <em>listrik, elektronik, sistem kontrol, instrumentasi, dan otomasi</em> di kapal, di bawah Chief Engineer.</p>
+        <h4>Tanggung Jawab Utama</h4>
+        <ul>
+          <li><b>Electrical</b> — generator, switchboard, motor, distribusi, proteksi.</li>
+          <li><b>Electronics</b> — AVR, PLC, HMI, sensor, transducer.</li>
+          <li><b>Control & Automation</b> — UMS (Unmanned Machinery Space), alarm monitoring.</li>
+          <li><b>Instrumentation</b> — kalibrasi pressure transmitter, temperature sensor, flow meter.</li>
+          <li><b>Maintenance</b> — sesuai PMS, insulasi test, megger, termografi.</li>
+          <li><b>Safety</b> — LOTO, permit to work, isolasi listrik.</li>
+        </ul>
+        <div class="note">ETO wajib memahami <b>STCW Code Section A-III/6</b> dan memenuhi persyaratan kompetensi ETO.</div>`,
+     formula:`<b>Hukum Ohm:</b> V = I × R<br><b>Daya AC 1 fasa:</b> P = V × I × cos φ<br><b>Daya AC 3 fasa:</b> P = √3 × V<sub>L</sub> × I<sub>L</sub> × cos φ`,
+     tags:['eto','listrik','formula'],
+     links:defaultLinks('Electro Technical Officer ship duties',[{type:'google', q:'STCW ETO regulation III/6', label:'STCW ETO' }])},
+
+    {n:3, q:"Apa yang dimaksud dengan Engine Room?",
+     a:`<p><b>Engine Room</b> (Kamar Mesin) adalah kompartemen utama kapal yang berisi mesin penggerak utama, generator, pompa, kompresor, boiler, separator, dan seluruh peralatan pendukung operasional kapal.</p>
+        <h4>Peralatan Utama di Engine Room</h4>
+        <ul>
+          <li><b>Main Engine</b> — mesin induk penggerak propeller.</li>
+          <li><b>Auxiliary Engine / Generator</b> — penyedia listrik.</li>
+          <li><b>Boiler</b> — penghasil uap / pemanas.</li>
+          <li><b>Air Compressor</b> — udara start & kontrol.</li>
+          <li><b>Pumps</b> — ballast, bilge, cooling, fuel, LO.</li>
+          <li><b>Purifier</b> — pemurni bahan bakar & oli.</li>
+          <li><b>OWS</b> — pemisah air-minyak bilga.</li>
+        </ul>
+        <div class="warn"><b>Keselamatan:</b> Engine Room adalah <em>enclosed space</em> — wajib ventilasi, cek atmosfer, dan komunikasi sebelum masuk.</div>`,
+     formula:null,
+     tags:['dasar','keselamatan'],
+     links:defaultLinks('ship engine room layout')},
+
+    {n:4, q:"Apa fungsi Main Engine?",
+     a:`<p><b>Main Engine</b> (mesin induk) adalah mesin yang menghasilkan <em>tenaga mekanis utama</em> untuk menggerakkan propeller kapal, baik secara langsung (direct drive) maupun melalui gearbox / CPP.</p>
+        <h4>Jenis Main Engine</h4>
+        <ul>
+          <li><b>Slow Speed Diesel (2-stroke)</b> — 60–250 RPM, langsung ke propeller, efisiensi tinggi.</li>
+          <li><b>Medium Speed Diesel (4-stroke)</b> — 250–1200 RPM, melalui gearbox / CPP.</li>
+          <li><b>Dual Fuel / LNG</b> — gas + diesel pilot.</li>
+          <li><b>Electric Propulsion</b> — mesin → generator → motor → propeller.</li>
+        </ul>
+        <div class="note"><b>Parameter penting:</b> RPM, MIP (Mean Indicated Pressure), exhaust temp per silinder, scavenge air pressure, turbocharger RPM, fuel index.</div>`,
+     formula:`<b>Daya Mesin:</b> P<sub>b</sub> = (2π × N × T) ÷ 60<br><small>N = RPM, T = Torsi (N·m), P<sub>b</sub> dalam Watt</small><br><br><b>Indicated Power:</b> P<sub>i</sub> = (P<sub>mi</sub> × L × A × N × n) ÷ 60<br><small>P<sub>mi</sub>=MIP, L=langkah, A=luas piston, n=jumlah silinder</small>`,
+     tags:['mesin induk','formula'],
+     links:defaultLinks('main engine marine diesel slow speed')},
+
+    {n:5, q:"Apa fungsi Auxiliary Engine?",
+     a:`<p><b>Auxiliary Engine</b> (mesin bantu) adalah mesin diesel yang menggerakkan <em>generator listrik</em> untuk mensuplai kebutuhan listrik kapal: penerangan, pompa, HVAC, navigasi, dan peralatan bantu lainnya.</p>
+        <h4>Konfigurasi Umum</h4>
+        <ul>
+          <li>Kapal niaga: 3 × 400–900 kW generator (2 running, 1 standby).</li>
+          <li>Emergency Generator: 50–200 kW, start otomatis < 45 detik saat blackout.</li>
+          <li>Shaft Generator: alternator yang digerakkan langsung oleh poros propeller.</li>
+        </ul>
+        <div class="note"><b>Frekuensi output:</b> bergantung pada jumlah kutub dan kecepatan putar sesuai rumus di bawah.</div>`,
+     formula:`<b>Frekuensi Generator:</b><br>f = (N × P) ÷ 120<br><small>f = frekuensi (Hz), N = RPM, P = jumlah kutub</small><br><br>Contoh: 1500 RPM, 4 kutub → f = (1500 × 4) ÷ 120 = 50 Hz`,
+     tags:['generator','formula','eto'],
+     links:defaultLinks('auxiliary engine generator ship')},
+
+    {n:6, q:"Apa yang dimaksud dengan sistem propulsi kapal?",
+     a:`<p><b>Sistem Propulsi</b> adalah sistem yang <em>mengubah energi mesin menjadi gaya dorong</em> untuk menggerakkan kapal melalui fluida (air).</p>
+        <h4>Komponen Sistem Propulsi</h4>
+        <ul>
+          <li><b>Prime Mover</b> — mesin diesel / turbin / motor listrik.</li>
+          <li><b>Transmisi</b> — poros, gearbox, coupling, CPP (Controllable Pitch Propeller).</li>
+          <li><b>Propulsor</b> — propeller, waterjet, azimuth thruster, pod.</li>
+          <li><b>Control System</b> — bridge telegraph, RPM governor, pitch control.</li>
+        </ul>
+        <div class="note">Efisiensi keseluruhan propulsi = η<sub>propulsi</sub> = η<sub>engine</sub> × η<sub>shaft</sub> × η<sub>propeller</sub> × η<sub>hull</sub></div>`,
+     formula:`<b>Gaya Dorong (Thrust):</b> T = ρ × Q × (V<sub>out</sub> − V<sub>in</sub>)<br><small>ρ = densitas air, Q = debit, V = kecepatan</small><br><br><b>Daya Dorong:</b> P<sub>E</sub> = T × V<sub>kapal</sub>`,
+     tags:['propulsi','formula'],
+     links:defaultLinks('marine propulsion system')},
+
+    {n:7, q:"Apa fungsi Propeller?",
+     a:`<p><b>Propeller</b> (baling-baling) mengubah <em>putaran poros menjadi gaya dorong</em> melalui interaksi dengan air berdasarkan prinsip aksi-reaksi dan hukum Bernoulli.</p>
+        <h4>Jenis Propeller</h4>
+        <ul>
+          <li><b>Fixed Pitch Propeller (FPP)</b> — pitch tetap, kontrol via RPM.</li>
+          <li><b>Controllable Pitch Propeller (CPP)</b> — pitch dapat diubah, kontrol via hydraulic hub.</li>
+          <li><b>Azimuth Thruster</b> — dapat diputar 360°, umum di DP vessel.</li>
+          <li><b>Podded Propeller</b> — motor listrik terintegrasi dalam pod.</li>
+        </ul>`,
+     formula:`<b>Thrust:</b> T = K<sub>T</sub> × ρ × n² × D⁴<br><b>Torque:</b> Q = K<sub>Q</sub> × ρ × n² × D⁵<br><small>K<sub>T</sub>,K<sub>Q</sub>=koefisien, n=putaran (rev/s), D=diameter propeller</small>`,
+     tags:['propulsi','formula'],
+     links:defaultLinks('ship propeller design')},
+
+    {n:8, q:"Apa yang dimaksud dengan RPM?",
+     a:`<p><b>RPM</b> = <em>Revolutions Per Minute</em>, yaitu jumlah putaran poros atau mesin dalam satu menit.</p>
+        <h4>Penggunaan RPM di Kapal</h4>
+        <ul>
+          <li><b>Main Engine RPM</b> — indikator utama beban propulsi (slow speed 60–120 RPM).</li>
+          <li><b>Generator RPM</b> — menentukan frekuensi (1500 RPM → 50 Hz, 1800 RPM → 60 Hz).</li>
+          <li><b>Turbocharger RPM</b> — indikator efisiensi pembakaran (bisa 20.000+ RPM).</li>
+          <li><b>Pump/Motor RPM</b> — indikator performa fluida / listrik.</li>
+        </ul>
+        <div class="note"><b>Penting ETO:</b> monitoring RPM generator wajib presisi karena berhubungan langsung dengan frekuensi busbar dan sinkronisasi.</div>`,
+     formula:`<b>Konversi:</b> 1 RPM = (2π ÷ 60) rad/s ≈ 0,10472 rad/s<br><b>Kecepatan sudut:</b> ω = (2π × N) ÷ 60<br><b>Frekuensi listrik:</b> f = (N × P) ÷ 120`,
+     tags:['dasar','formula','eto'],
+     links:defaultLinks('RPM marine engine measurement')},
+
+    {n:9, q:"Apa yang dimaksud dengan beban mesin (Engine Load)?",
+     a:`<p><b>Engine Load</b> adalah <em>perbandingan daya aktual yang dihasilkan mesin terhadap daya maksimum (rated power) mesin tersebut</em>, biasanya dinyatakan dalam persen.</p>
+        <h4>Beban Mesin Berdasarkan Indikator</h4>
+        <ul>
+          <li><b>Fuel Index / Rack Position</b> — indikator utama beban di mesin diesel.</li>
+          <li><b>MIP (Mean Indicated Pressure)</b> — tekanan rata-rata indikator.</li>
+          <li><b>Exhaust Gas Temperature</b> — meningkat seiring beban.</li>
+          <li><b>Turbocharger Boost Pressure</b> — naik dengan beban.</li>
+        </ul>
+        <div class="note"><b>Rekomendasi:</b> continuous service load umumnya 75–85% MCR untuk efisiensi optimal dan umur mesin panjang.</div>`,
+     formula:`<b>Engine Load (%):</b><br>Load = (Daya Aktual ÷ Daya Rated) × 100%<br><br><b>Contoh:</b> Mesin 10.000 kW, aktual 7.500 kW<br>Load = (7500 ÷ 10000) × 100% = 75%`,
+     tags:['beban','formula'],
+     links:defaultLinks('main engine load diagram')},
+
+    {n:10, q:"Mengapa operator harus memahami manual mesin?",
+     a:`<p>Manual mesin (Operation & Maintenance Manual) adalah <em>dokumen resmi dari pabrikan</em> yang berisi seluruh informasi teknis yang diperlukan untuk mengoperasikan dan merawat mesin dengan benar.</p>
+        <h4>Isi Penting Manual</h4>
+        <ul>
+          <li><b>Spesifikasi Teknis</b> — kapasitas, daya, tekanan, suhu operasi.</li>
+          <li><b>Prosedur Start/Stop</b> — urutan operasi yang benar.</li>
+          <li><b>Setpoint Alarm & Trip</b> — batas proteksi mesin.</li>
+          <li><b>Jadwal Perawatan</b> — interval, item, dan standar.</li>
+          <li><b>Torque Spesifikasi</b> — untuk baut-baut kritis.</li>
+          <li><b>Troubleshooting Guide</b> — diagnosa gangguan.</li>
+          <li><b>Wiring Diagram & P&ID</b> — untuk ETO.</li>
+        </ul>
+        <div class="warn"><b>Peringatan:</b> Melanggar prosedur manual dapat membatalkan garansi dan membahayakan keselamatan.</div>`,
+     formula:null,
+     tags:['dasar','manual'],
+     links:defaultLinks('marine engine operation manual')}
+  ]
+},
+
+/* ============ BAGIAN B ============ */
+{
+  id:"B", short:"Mesin Diesel", title:"Mesin Diesel Induk", range:"11–20",
+  questions:[
+    {n:11, q:"Apa fungsi mesin diesel pada kapal?",
+     a:`<p><b>Mesin Diesel</b> mengubah <em>energi kimia bahan bakar menjadi energi panas</em> melalui proses pembakaran, kemudian menjadi <em>energi mekanis</em> melalui gerak piston-poros engkol.</p>
+        <h4>Prinsip Dasar Mesin Diesel</h4>
+        <ol>
+          <li>Udara dikompresi hingga suhu tinggi (500–700°C).</li>
+          <li>Bahan bakar diinjeksikan pada akhir langkah kompresi.</li>
+          <li>Terjadi auto-ignition (pembakaran sendiri) karena suhu kompresi.</li>
+          <li>Ekspansi gas mendorong piston → menghasilkan kerja.</li>
+        </ol>
+        <div class="note"><b>Ratio Kompresi:</b> mesin diesel kapal 12:1 – 22:1 (jauh lebih tinggi dari bensin 8:1 – 12:1).</div>`,
+     formula:`<b>Efisiensi Termal:</b> η<sub>th</sub> = 1 − (1 ÷ r<sup>γ−1</sup>)<br><small>r = compression ratio, γ = rasio panas spesifik ≈ 1,4</small><br><br><b>BSFC:</b> SFOC = (Konsumsi BB per jam × 1000) ÷ Daya (kW)<br><small>Satuan: g/kWh — tipikal 160–190 g/kWh</small>`,
+     tags:['mesin diesel','formula'],
+     links:defaultLinks('marine diesel engine working principle')},
+
+    {n:12, q:"Apa yang dimaksud dengan mesin diesel dua langkah (two-stroke)?",
+     a:`<p><b>Mesin Diesel 2-Tak</b> menyelesaikan satu siklus kerja dalam <em>dua langkah piston</em> = <em>satu putaran poros engkol</em>.</p>
+        <h4>Karakteristik</h4>
+        <ul>
+          <li><b>Langkah 1 (Upward)</b> — scavenging + kompresi.</li>
+          <li><b>Langkah 2 (Downward)</b> — power (ekspansi) + exhaust.</li>
+          <li><b>Scavenge Air</b> — udara masuk via scavenge port, mendorong gas buang keluar.</li>
+          <li><b>Uniflow Scavenging</b> — udara masuk dari bawah, gas buang keluar dari atas via exhaust valve.</li>
+          <li><b>Power Density Tinggi</b> — 2× power per putaran.</li>
+          <li><b>Digunakan pada</b> — Main Engine slow speed (MAN B&W, Wärtsilä RT-flex).</li>
+        </ul>
+        <div class="note"><b>Kelebihan:</b> power besar, RPM rendah, langsung ke propeller (tanpa gearbox).</div>`,
+     formula:`<b>Power (2-stroke):</b> P = (P<sub>mi</sub> × L × A × N × n) ÷ 60<br><small>N = RPM (bukan 2 putaran)</small><br><br><b>Firing Order:</b> 1 putaran = 1 kali pembakaran per silinder`,
+     tags:['mesin diesel','formula'],
+     links:defaultLinks('two stroke marine diesel engine uniflow scavenging')},
+
+    {n:13, q:"Apa yang dimaksud dengan mesin diesel empat langkah (four-stroke)?",
+     a:`<p><b>Mesin Diesel 4-Tak</b> menyelesaikan satu siklus dalam <em>empat langkah piston</em> = <em>dua putaran poros engkol</em>.</p>
+        <h4>Karakteristik</h4>
+        <ul>
+          <li>Ada katup intake dan exhaust yang digerakkan camshaft.</li>
+          <li>Setiap silinder firing 1× per 2 putaran → N/2 firing per menit per silinder.</li>
+          <li>Digunakan sebagai <b>Auxiliary Engine / Generator</b> dan medium-speed main engine.</li>
+          <li>Umumnya turbocharged dengan aftercooler.</li>
+        </ul>`,
+     formula:`<b>Firing Rate per silinder:</b> N ÷ 2 (firing per menit)<br><br><b>Power (4-stroke):</b> P = (P<sub>mi</sub> × L × A × N × n) ÷ (2 × 60)`,
+     tags:['mesin diesel','formula'],
+     links:defaultLinks('four stroke diesel engine cycle')},
+
+    {n:14, q:"Sebutkan empat langkah kerja mesin diesel empat langkah.",
+     a:`<h4>Siklus Diesel 4-Tak</h4>
+        <ol>
+          <li><b>Intake (Pemasukan)</b> — piston turun, katup intake terbuka, udara bersih masuk. Exhaust tertutup. <em>Tekanan ≈ 1 bar, suhu ≈ 30–50°C.</em></li>
+          <li><b>Compression (Kompresi)</b> — piston naik, kedua katup tertutup, udara dikompresi hingga 30–60 bar dan 600–800°C. <em>Di akhir langkah inilah bahan bakar diinjeksi.</em></li>
+          <li><b>Power (Usaha)</b> — auto-ignition terjadi, gas mengembang cepat, piston terdorong turun. <em>Tekanan puncak 80–150 bar.</em></li>
+          <li><b>Exhaust (Pembuangan)</b> — piston naik, katup exhaust terbuka, gas sisa keluar ke turbocharger.</li>
+        </ol>
+        <div class="diagram">Intake → Compression → Power → Exhaust → (ulangi)
+   ↓         ↓             ↓         ↓
+ Udara    Kompresi      Pembakaran  Gas Buang
+ masuk    + inject      + ekspansi  keluar</div>`,
+     formula:null,
+     tags:['mesin diesel','diagram'],
+     links:defaultLinks('four stroke diesel engine animation')},
+
+    {n:15, q:"Apa fungsi Cylinder Liner?",
+     a:`<p><b>Cylinder Liner</b> adalah lapisan silinder tempat piston bergerak naik-turun, yang menyediakan <em>permukaan kerja tahan aus</em> dan dapat diganti ketika sudah melebihi wear limit.</p>
+        <h4>Fungsi Utama</h4>
+        <ul>
+          <li>Membentuk ruang bakar bersama piston head dan cylinder cover.</li>
+          <li>Memandu gerak piston agar lurus dan presisi.</li>
+          <li>Menyalurkan panas ke jacket water.</li>
+          <li>Sebagai bidang pelumasan dengan oil film (2-stroke pakai cylinder oil).</li>
+          <li>Dapat diganti tanpa mengganti blok mesin (replaceable liner).</li>
+        </ul>
+        <div class="note"><b>Jenis:</b> Dry Liner, Wet Liner (contact air pendingin), dan Plated Liner (chrome / ceramic).</div>`,
+     formula:`<b>Wear Rate:</b> Wear = (D<sub>awal</sub> − D<sub>akhir</sub>) ÷ Jam Operasi<br><small>Batas: 0,1–0,5% dari diameter per 1000 jam</small>`,
+     tags:['komponen'],
+     links:defaultLinks('marine engine cylinder liner wear')},
+
+    {n:16, q:"Apa fungsi Piston?",
+     a:`<p><b>Piston</b> adalah komponen yang menerima <em>tekanan gas hasil pembakaran</em> dan meneruskan gaya melalui connecting rod ke crankshaft, sehingga gerak lurus menjadi putaran.</p>
+        <h4>Bagian Piston</h4>
+        <ul>
+          <li><b>Piston Crown</b> — permukaan atas, menerima panas langsung (bahan: cast iron / steel).</li>
+          <li><b>Piston Skirt</b> — memandu gerak piston dalam liner.</li>
+          <li><b>Ring Grooves</b> — alur untuk compression ring dan oil control ring.</li>
+          <li><b>Piston Pin / Gudgeon Pin</b> — sambungan piston dengan connecting rod.</li>
+          <li><b>Cooling Cavity</b> — rongga pendingin di dalam piston (untuk 2-stroke besar).</li>
+        </ul>`,
+     formula:`<b>Gaya pada Piston:</b> F = P × A<br><small>P = tekanan gas (Pa), A = luas piston (m²)</small><br><br><b>Contoh:</b> A = 0,1 m², P = 100 bar = 10⁷ Pa<br>F = 10⁷ × 0,1 = 10⁶ N = 1 MN`,
+     tags:['komponen','formula'],
+     links:defaultLinks('marine piston marine diesel')},
+
+    {n:17, q:"Apa fungsi Connecting Rod?",
+     a:`<p><b>Connecting Rod</b> (batang penghubung) adalah komponen yang <em>meneruskan gaya dan gerakan piston ke poros engkol</em>, sekaligus mengubah gerak translasi menjadi rotasi.</p>
+        <h4>Bagian Connecting Rod</h4>
+        <ul>
+          <li><b>Small End</b> — berhubungan dengan piston pin.</li>
+          <li><b>Shank / Shaft</b> — batang utama.</li>
+          <li><b>Big End</b> — berhubungan dengan crankpin journal.</li>
+          <li><b>Bearing Shells</b> — bantalan di kedua ujung.</li>
+          <li><b>Oil Passage</b> — saluran oli dari big end ke small end.</li>
+        </ul>
+        <div class="note"><b>Pemeriksaan:</b> crack detection dengan MPI/DPI, clearance bearing, elongasi big end.</div>`,
+     formula:`<b>Torsi:</b> T = F × r × sin(θ + β) ÷ cos β<br><small>F = gaya piston, r = crank radius, θ = crank angle, β = sudut rod</small>`,
+     tags:['komponen','formula'],
+     links:defaultLinks('connecting rod marine diesel')},
+
+    {n:18, q:"Apa fungsi Crankshaft?",
+     a:`<p><b>Crankshaft</b> (poros engkol) mengubah <em>gerak naik-turun piston menjadi gerak putar</em> yang kemudian diteruskan ke poros propeller atau flywheel generator.</p>
+        <h4>Bagian Crankshaft</h4>
+        <ul>
+          <li><b>Main Journal</b> — tumpuan utama di main bearing.</li>
+          <li><b>Crankpin Journal</b> — tempat big end connecting rod.</li>
+          <li><b>Crank Web</b> — menghubungkan main journal dan crankpin.</li>
+          <li><b>Counterweight</b> — penyeimbang massa.</li>
+          <li><b>Oil Hole</b> — saluran pelumasan.</li>
+          <li><b>Fillet</b> — radius untuk distribusi tegangan.</li>
+        </ul>
+        <div class="warn"><b>Defleksi & misalignment</b> adalah penyebab utama kerusakan crankshaft. Wajib diukur saat overhaul.</div>`,
+     formula:`<b>Deflection:</b> Δ = |R<sub>1</sub> − R<sub>2</sub>|<br><small>Batas umum: 0,02–0,05 mm/m panjang poros</small>`,
+     tags:['komponen','formula'],
+     links:defaultLinks('crankshaft deflection marine engine')},
+
+    {n:19, q:"Apa fungsi Fuel Injector?",
+     a:`<p><b>Fuel Injector</b> menyemprotkan bahan bakar ke ruang bakar pada <em>waktu, tekanan, pola, dan jumlah</em> yang tepat sesuai desain mesin.</p>
+        <h4>Jenis Injector</h4>
+        <ul>
+          <li><b>Conventional (Jerk Pump)</b> — timing mekanis via camshaft.</li>
+          <li><b>Common Rail</b> — tekanan dikontrol solenoid/valve, timing fleksibel.</li>
+          <li><b>Electronically Controlled</b> — Wärtsilä RT-flex, MAN ME.</li>
+        </ul>
+        <h4>Parameter Penting</h4>
+        <ul>
+          <li><b>Injection Pressure</b> — 200–1500 bar (CR bisa > 2000 bar).</li>
+          <li><b>Injection Timing</b> — 5–25° sebelum TDC.</li>
+          <li><b>Spray Pattern</b> — cone angle, penetrasi, atomisasi.</li>
+        </ul>`,
+     formula:`<b>Fuel Delivery:</b> Q = A × v × t<br><small>A=luas nozzle, v=kecepatan, t=waktu injeksi</small><br><br><b>Atomisasi:</b> SMD = 2000 × d<sub>n</sub> × Re<sup>−0,2</sup> × We<sup>−0,2</sup>`,
+     tags:['bahan bakar','formula','eto'],
+     links:defaultLinks('marine fuel injector common rail')},
+
+    {n:20, q:"Mengapa temperatur gas buang setiap silinder perlu dipantau?",
+     a:`<p>Temperatur gas buang (<em>Exhaust Gas Temperature / EGT</em>) per silinder adalah <em>indikator paling cepat</em> untuk mendeteksi gangguan pembakaran sebelum menjadi kerusakan besar.</p>
+        <h4>Deviasi yang Perlu Diwaspadai</h4>
+        <ul>
+          <li><b>EGT tinggi</b> — overfueling, injektor bocor, timing maju, kompresi rendah, turbo bermasalah.</li>
+          <li><b>EGT rendah</b> — underfueling, injektor tersumbat, pompa injeksi lemah.</li>
+          <li><b>Deviasi > 30°C dari rata-rata</b> → periksa silinder tersebut.</li>
+          <li><b>Deviasi > 50°C</b> → kurangi beban dan lakukan investigasi.</li>
+        </ul>
+        <div class="warn"><b>Keselamatan:</b> EGT tinggi bisa menyebabkan <em>turbocharger surge</em> dan <em>exhaust valve burning</em>.</div>`,
+     formula:`<b>Deviasi EGT:</b> ΔT = |T<sub>silinder</sub> − T<sub>rata-rata</sub>|<br><br><b>Rata-rata:</b> T<sub>avg</sub> = (ΣT<sub>n</sub>) ÷ n<br><br><b>Batas tipikal:</b> ΔT<sub>max</sub> ≈ 30–50°C`,
+     tags:['egt','formula','monitoring'],
+     links:defaultLinks('exhaust gas temperature marine engine monitoring')}
+  ]
+},
+
+/* ============ BAGIAN C ============ */
+{
+  id:"C", short:"BBM & Pelumas", title:"Sistem Bahan Bakar dan Pelumasan", range:"21–30",
+  questions:[
+    {n:21, q:"Apa fungsi sistem bahan bakar kapal?",
+     a:`<p><b>Sistem Bahan Bakar</b> menyimpan, memindahkan, memurnikan, mengondisikan, dan menyuplai bahan bakar ke mesin sesuai kebutuhan.</p>
+        <h4>Sub-Sistem</h4>
+        <ul>
+          <li><b>Storage & Settling Tank</b> — penyimpanan & pengendapan awal (24 jam).</li>
+          <li><b>Transfer System</b> — pompa, valve manifold, cross-over.</li>
+          <li><b>Purification</b> — separator, purifier (auto/manual).</li>
+          <li><b>Service Tank</b> — tangki siap pakai (maks 1–2 hari konsumsi).</li>
+          <li><b>Booster / Circulating</b> — pressurize & viskositas.</li>
+          <li><b>Injection System</b> — HFO pump, FIP, injector.</li>
+        </ul>
+        <div class="note"><b>Viskositas injeksi HFO:</b> 10–15 cSt @ 50°C. Heating wajib menjaga viskositas ini.</div>`,
+     formula:`<b>Kapasitas Tangki:</b> V = (Konsumsi harian × Autonomi) ÷ 0,95 (margin)<br><br><b>Heating Requirement:</b> Q = m × c<sub>p</sub> × ΔT<br><small>m=massa, c<sub>p</sub>=panas spesifik, ΔT=beda suhu</small>`,
+     tags:['bahan bakar','formula'],
+     links:defaultLinks('marine fuel oil system ship')},
+
+    {n:22, q:"Apa fungsi Fuel Oil Transfer Pump?",
+     a:`<p><b>Fuel Oil Transfer Pump</b> memindahkan bahan bakar antar tangki: dari bunker tank → settling tank → service tank, atau antar storage tank.</p>
+        <h4>Spesifikasi Umum</h4>
+        <ul>
+          <li>Jenis: Positive Displacement (screw, gear) atau Centrifugal.</li>
+          <li>Kapasitas: 5–100 m³/jam.</li>
+          <li>Tekanan: 3–8 bar.</li>
+          <li>Umumnya screw pump untuk HFO karena viskositas tinggi.</li>
+        </ul>
+        <div class="note"><b>Prosedur:</b> Buka valve yang benar, start pump, pantau flow & pressure, catat transfer di oil record book.</div>`,
+     formula:`<b>Debit Pompa:</b> Q = V ÷ t (m³/jam)<br><b>Daya Pompa:</b> P = (Q × ρ × g × H) ÷ η<br><small>H=head, η=efisiensi (0,6–0,85)</small>`,
+     tags:['pompa','formula'],
+     links:defaultLinks('fuel oil transfer pump ship')},
+
+    {n:23, q:"Apa fungsi Fuel Filter?",
+     a:`<p><b>Fuel Filter</b> menahan partikel kotoran agar tidak masuk ke pompa injeksi dan injector yang memiliki <em>toleransi presisi mikron</em>.</p>
+        <h4>Klasifikasi Filter</h4>
+        <ul>
+          <li><b>Coarse Filter</b> — 100–300 µm, sebelum purifier.</li>
+          <li><b>Fine Filter</b> — 10–30 µm, sebelum FIP.</li>
+          <li><b>Auto Backwash Filter</b> — self-cleaning.</li>
+          <li><b>Duplex Filter</b> — dapat ganti saat operasi (change-over).</li>
+        </ul>
+        <div class="warn"><b>DP Alarm:</b> Differential pressure filter > 0,8–1,2 bar → filter tersumbat, ganti.</div>`,
+     formula:`<b>Differential Pressure:</b> ΔP = P<sub>in</sub> − P<sub>out</sub><br><small>Batas filter bersih: ΔP < 0,3 bar</small><br><small>Batas ganti: ΔP > 0,8–1,2 bar</small>`,
+     tags:['filter','formula'],
+     links:defaultLinks('marine fuel oil filter system')},
+
+    {n:24, q:"Apa fungsi Fuel Oil Purifier?",
+     a:`<p><b>Fuel Oil Purifier</b> memisahkan air dan kontaminan dari bahan bakar menggunakan <em>gaya sentrifugal</em> pada kecepatan tinggi (5000–10000 RPM).</p>
+        <h4>Prinsip Kerja</h4>
+        <ol>
+          <li>Bahan bakar dipanaskan hingga 90–98°C untuk menurunkan viskositas.</li>
+          <li>Masuk ke bowl yang berputar cepat.</li>
+          <li>Kontaminan berat (air, sludge) mengendap di dinding bowl.</li>
+          <li>Bahan bakar bersih keluar dari sisi dalam.</li>
+        </ol>
+        <div class="note"><b>Alfa Laval / Westfalia</b> adalah merek umum purifier di kapal.</div>`,
+     formula:`<b>Gaya Sentrifugal:</b> F = m × ω² × r<br><small>m=massa, ω=kecepatan sudut, r=radius</small><br><br>Bandingkan dengan gravitasi: F<sub>c</sub> ÷ F<sub>g</sub> ≈ 2000–8000×`,
+     tags:['purifier','formula'],
+     links:defaultLinks('marine fuel oil purifier working')},
+
+    {n:25, q:"Apa yang dimaksud dengan Viscosity bahan bakar?",
+     a:`<p><b>Viscositas</b> adalah ukuran <em>kekentalan atau hambatan bahan bakar untuk mengalir</em>. Ini adalah parameter kritis untuk atomisasi injeksi.</p>
+        <h4>Satuan Viskositas</h4>
+        <ul>
+          <li><b>Kinematic Viscosity (ν)</b> — cSt (mm²/s) pada 50°C. Standar bunker: 180, 380 cSt.</li>
+          <li><b>Dynamic Viscosity (μ)</b> — cP (mPa·s).</li>
+          <li><b>Hubungan:</b> μ = ν × ρ.</li>
+        </ul>
+        <div class="note"><b>Viskositas injeksi ideal:</b> 10–15 cSt @ injector inlet. Lebih kental → atomisasi jelek. Lebih encer → pompa cepat aus.</div>`,
+     formula:`<b>Kinematic:</b> ν = μ ÷ ρ<br><small>ν dalam cSt, μ dalam cP, ρ dalam g/cm³</small><br><br><b>Viscosity-Temperature (ASTM D341):</b><br>log log(ν + 0,7) = A − B log T`,
+     tags:['viscositas','formula'],
+     links:defaultLinks('fuel oil viscosity marine fuel injection')},
+
+    {n:26, q:"Apa fungsi sistem pelumasan (Lubrication System)?",
+     a:`<p><b>Sistem Pelumasan</b> membentuk <em>oil film</em> untuk mengurangi gesekan & keausan, membantu pendinginan, membawa kontaminan, dan melindungi dari korosi.</p>
+        <h4>Fungsi Utama Pelumas</h4>
+        <ul>
+          <li><b>Lubrication</b> — membentuk lapisan pemisah antar permukaan.</li>
+          <li><b>Cooling</b> — menyerap panas dan membawanya ke cooler.</li>
+          <li><b>Cleaning</b> — membawa partikel ke filter/purifier.</li>
+          <li><b>Sealing</b> — membantu sealing pada piston ring.</li>
+          <li><b>Corrosion Protection</b> — lapisan anti karat.</li>
+          <li><b>Power Transmission</b> — pada hydraulic system.</li>
+        </ul>`,
+     formula:`<b>Stribeck Curve</b> menunjukkan 3 regime:<br>1. Boundary → 2. Mixed → 3. Hydrodynamic<br><br><b>Hydrodynamic Pressure:</b> p = (6 × μ × U × L) ÷ h²<br><small>μ=viscositas, U=kecepatan sliding, L=panjang, h=tebal film</small>`,
+     tags:['pelumasan','formula'],
+     links:defaultLinks('marine engine lubrication system')},
+
+    {n:27, q:"Apa fungsi Lubricating Oil Pump?",
+     a:`<p><b>LO Pump</b> mengalirkan oli pelumas ke seluruh titik pelumasan mesin pada tekanan dan debit yang ditentukan.</p>
+        <h4>Jenis LO Pump di Kapal</h4>
+        <ul>
+          <li><b>Main LO Pump</b> — engine driven, kapasitas besar.</li>
+          <li><b>Auxiliary / Standby LO Pump</b> — electric driven.</li>
+          <li><b>Crosshead LO Pump</b> — khusus 2-stroke, untuk crosshead & crankpin.</li>
+          <li><b>Cylinder LO Pump</b> — untuk 2-stroke cylinder lubrication (dose terkontrol).</li>
+        </ul>
+        <div class="warn"><b>Pressure Trip:</b> < 1,5 bar biasanya auto-trip / engine slowdown.</div>`,
+     formula:`<b>Daya Pompa:</b> P<sub>hyd</sub> = (Q × ΔP) ÷ 600<br><small>Q dalam L/min, ΔP dalam bar, P dalam kW</small>`,
+     tags:['pelumasan','formula'],
+     links:defaultLinks('marine main lubricating oil pump')},
+
+    {n:28, q:"Apa fungsi Lubricating Oil Filter?",
+     a:`<p><b>LO Filter</b> menyaring partikel logam, karbon, dan kontaminan agar tidak merusak bearing, journal, dan permukaan mesin.</p>
+        <h4>Konfigurasi Filter LO</h4>
+        <ul>
+          <li><b>Full Flow Filter</b> — 100% oli melewati filter (10–25 µm).</li>
+          <li><b>Bypass Filter</b> — hanya sebagian oli (2–5%), filtering lebih halus (1–5 µm).</li>
+          <li><b>Auto Backwash / Self-cleaning</b> — memakai compressed air.</li>
+          <li><b>Duplex</b> — untuk ganti tanpa stop mesin.</li>
+        </ul>`,
+     formula:`<b>Filtrasi Efisiensi:</b> β<sub>x(c)</sub> = N<sub>up</sub> ÷ N<sub>down</sub><br><small>β<sub>10(c)</sub>=200 artinya hanya 1 dari 200 partikel > 10 µm lolos</small>`,
+     tags:['pelumasan','formula'],
+     links:defaultLinks('lubricating oil filter marine')},
+
+    {n:29, q:"Apa akibat tekanan oli pelumas terlalu rendah?",
+     a:`<p>Tekanan oli rendah menyebabkan <em>oil film gagal terbentuk</em>, sehingga terjadi kontak metal-to-metal → gesekan, panas berlebih, dan kerusakan komponen mesin.</p>
+        <h4>Kerusakan yang Dapat Terjadi</h4>
+        <ul>
+          <li><b>Bearing Scoring</b> — permukaan bearing tergores.</li>
+          <li><b>Journal Wiping</b> — poros engkol rusak.</li>
+          <li><b>Piston Seizure</b> — piston macet dalam liner.</li>
+          <li><b>Turbo Bearing Failure</b> — turbocharger rusak total.</li>
+          <li><b>Camshaft Wear</b> — penggerak katup aus.</li>
+        </ul>`,
+     formula:`<b>Hubungan Tekanan-Aliran:</b> ΔP = R<sub>h</sub> × Q<br><small>R<sub>h</sub>=hambatan hidrolik, Q=debit</small><br><br><b>Penyebab P↓:</b> pompa lemah, relief valve bocor, filter tersumbat, kebocoran internal, oli encer, level rendah`,
+     tags:['pelumasan','formula','keselamatan'],
+     links:defaultLinks('low lube oil pressure marine engine causes')},
+
+    {n:30, q:"Apa tindakan awal jika alarm tekanan oli rendah muncul?",
+     a:`<h4>Langkah Sistematis (Sesuai Prosedur)</h4>
+        <ol>
+          <li><b>Konfirmasi Alarm</b> — cek HMI/panel, bandingkan dengan local pressure gauge. Pastikan bukan false alarm.</li>
+          <li><b>Informasikan</b> — segera ke Chief Engineer / Duty Engineer.</li>
+          <li><b>Cek Parameter Terkait</b> — level oli, temperatur oli, filter DP, pressure pompa discharge.</li>
+          <li><b>Reduce Load</b> — kurangi beban mesin ke slow down / dead slow.</li>
+          <li><b>Standby Pump</b> — cek apakah aux LO pump bisa auto-start.</li>
+          <li><b>Stop Engine</b> — jika tekanan terus turun ke level trip, biarkan proteksi bekerja atau stop manual.</li>
+          <li><b>Investigasi</b> — setelah aman, investigasi penyebab (pompa, filter, bearing, kebocoran).</li>
+        </ol>
+        <div class="warn"><b>JANGAN:</b> Mem-<em>bypass</em> alarm, mengabaikan trip, atau melanjutkan operasi tanpa investigasi. Keselamatan mesin & crew adalah prioritas.</div>`,
+     formula:`<b>Setpoint Tipikal:</b><br>Alarm LO Pressure Low: 1,5–2,0 bar<br>Slow Down: 1,2–1,5 bar<br>Trip (auto stop): 0,8–1,0 bar`,
+     tags:['keselamatan','prosedur'],
+     links:defaultLinks('low lube oil pressure alarm procedure ship')}
+  ]
+},
+
+/* ============ BAGIAN D ============ */
+{
+  id:"D", short:"Pendingin", title:"Sistem Pendingin", range:"31–40",
+  questions:[
+    {n:31, q:"Mengapa mesin kapal memerlukan sistem pendingin?",
+     a:`<p>Sistem pendingin membuang <em>panas berlebih</em> yang dihasilkan dari pembakaran (30–35% energi bahan bakar menjadi panas yang harus dibuang) dan menjaga temperatur komponen dalam batas materialnya.</p>
+        <h4>Distribusi Energi Bahan Bakar pada Mesin Diesel</h4>
+        <ul>
+          <li>~40–45% → Energi berguna (daya poros).</li>
+          <li>~25–30% → Panas gas buang.</li>
+          <li>~25–30% → Panas ke jacket water & lubricating oil.</li>
+          <li>~5% → Radiasi & konveksi.</li>
+        </ul>
+        <div class="warn"><b>Akibat tanpa pendinginan:</b> overheating, thermal stress, oil degradation, piston seizure, cylinder head cracking.</div>`,
+     formula:`<b>Neraca Panas:</b> Q<sub>fuel</sub> = Q<sub>shaft</sub> + Q<sub>exhaust</sub> + Q<sub>cooling</sub> + Q<sub>rad</sub><br><br><b>Kalor Pendingin:</b> Q = ṁ × c<sub>p</sub> × ΔT<br><small>ṁ=mass flow (kg/s), c<sub>p</sub>=4,18 kJ/kg·K (air), ΔT=beda suhu</small>`,
+     tags:['pendingin','formula'],
+     links:defaultLinks('marine engine cooling system')},
+
+    {n:32, q:"Apa fungsi Fresh Water Cooling System?",
+     a:`<p><b>Fresh Water (FW) Cooling System</b> menggunakan <em>air tawar</em> sebagai media pendingin utama untuk jacket water mesin, karena air tawar dapat diberi treatment anti-korosi, anti-scale, dan anti-foam.</p>
+        <h4>Keunggulan Air Tawar</h4>
+        <ul>
+          <li>Tidak korosif (dengan treatment kimia).</li>
+          <li>Titik didih lebih tinggi → bisa operasi pada suhu lebih tinggi tanpa boiling.</li>
+          <li>Tidak menyebabkan scale.</li>
+          <li>Bisa diberi inhibitor & antifreeze untuk daerah dingin.</li>
+        </ul>
+        <div class="note"><b>Komponen FW Circuit:</b> FW pump, jacket water cooler (heat exchanger), expansion tank, thermostat / temperature control valve, chemical dosing tank, alarm high temperature.</div>`,
+     formula:`<b>Kapasitas Expansion Tank:</b> V ≈ 10–15% dari total volume sistem<br><br><b>Treatment Kimia:</b> Nitrit 800–1500 ppm, Borat 2400–3000 ppm`,
+     tags:['pendingin','formula'],
+     links:defaultLinks('fresh water cooling system marine engine')},
+
+    {n:33, q:"Apa fungsi Sea Water Cooling System?",
+     a:`<p><b>Sea Water (SW) Cooling System</b> menggunakan air laut sebagai media pembuangan panas akhir melalui heat exchanger (central cooling) atau langsung (jacket water cooler).</p>
+        <h4>Karakteristik</h4>
+        <ul>
+          <li>Suhu masuk: 25–32°C (tergantung laut).</li>
+          <li>Suhu keluar: < 45–50°C (mencegah scale & korosi).</li>
+          <li>Flow rate besar karena ΔT kecil.</li>
+          <li>Material: cupronickel, titanium, gunmetal, kuningan laut (tahan korosi).</li>
+        </ul>
+        <div class="warn"><b>Bahaya:</b> Biofouling (kerang, alga) — perlu klorinasi atau ferrous sulfate dosing. Korosi galvanik — perlu anoda zinc.</div>`,
+     formula:`<b>Kalor yang Dibuang:</b> Q<sub>SW</sub> = Q<sub>FW</sub><br>ṁ<sub>SW</sub> × c<sub>p</sub> × ΔT<sub>SW</sub> = ṁ<sub>FW</sub> × c<sub>p</sub> × ΔT<sub>FW</sub><br><br><b>LMTD Heat Exchanger:</b> ΔT<sub>lm</sub> = (ΔT<sub>1</sub> − ΔT<sub>2</sub>) ÷ ln(ΔT<sub>1</sub>/ΔT<sub>2</sub>)`,
+     tags:['pendingin','formula'],
+     links:defaultLinks('sea water cooling system ship')},
+
+    {n:34, q:"Apa fungsi Heat Exchanger?",
+     a:`<p><b>Heat Exchanger</b> memindahkan panas dari satu fluida ke fluida lain <em>tanpa mencampurkan</em> keduanya, dengan dinding pemisah (tube wall / plate).</p>
+        <h4>Jenis Heat Exchanger di Kapal</h4>
+        <ul>
+          <li><b>Shell & Tube</b> — paling umum, tube bundle dalam shell.</li>
+          <li><b>Plate Heat Exchanger</b> — compact, efisien, cocok untuk FW.</li>
+          <li><b>Central Cooler</b> — FW untuk semua sistem, SW sebagai pendingin akhir.</li>
+          <li><b>Air Cooler / Charge Air Cooler</b> — untuk udara turbo.</li>
+        </ul>`,
+     formula:`<b>Laju Perpindahan Panas:</b> Q = U × A × ΔT<sub>lm</sub><br><small>U=koefisien overall (W/m²·K), A=luas area, ΔT<sub>lm</sub>=log mean temp diff</small><br><br><b>Kesetimbangan Energi:</b> Q<sub>hot</sub> = Q<sub>cold</sub><br>ṁ<sub>h</sub>c<sub>p,h</sub>(T<sub>h,in</sub>−T<sub>h,out</sub>) = ṁ<sub>c</sub>c<sub>p,c</sub>(T<sub>c,out</sub>−T<sub>c,in</sub>)`,
+     tags:['pendingin','formula'],
+     links:defaultLinks('marine heat exchanger shell tube')},
+
+    {n:35, q:"Apa fungsi Cooling Water Pump?",
+     a:`<p><b>Cooling Water Pump</b> mensirkulasikan air pendingin melalui mesin dan peralatan terkait pada debit dan tekanan yang cukup untuk membuang panas.</p>
+        <h4>Jenis</h4>
+        <ul>
+          <li><b>FW Cooling Pump</b> — centrifugal, umumnya engine-driven.</li>
+          <li><b>SW Cooling Pump</b> — centrifugal, dengan material tahan korosi.</li>
+          <li><b>Emergency Cooling Pump</b> — electric, untuk backup.</li>
+        </ul>
+        <div class="note"><b>Standby Pump:</b> Auto-start saat pressure low, atau alarm untuk manual start.</div>`,
+     formula:`<b>Daya Hidrolik Pompa:</b> P<sub>h</sub> = (Q × ρ × g × H) ÷ 1000<br><small>Q=m³/s, ρ=kg/m³, H=head (m), P<sub>h</sub> dalam kW</small><br><br><b>Daya Motor:</b> P<sub>m</sub> = P<sub>h</sub> ÷ η<br><small>η total ≈ 0,6–0,75</small>`,
+     tags:['pendingin','pompa','formula'],
+     links:defaultLinks('cooling water pump marine engine')},
+
+    {n:36, q:"Apa yang dimaksud dengan Jacket Water?",
+     a:`<p><b>Jacket Water</b> adalah air pendingin yang bersirkulasi di <em>rongga (jacket) sekitar silinder, cylinder head, dan exhaust valve</em> untuk menyerap panas pembakaran.</p>
+        <h4>Titik Pendinginan Utama</h4>
+        <ul>
+          <li>Cylinder liner (bagian luar).</li>
+          <li>Cylinder head (dekat injector & valve).</li>
+          <li>Exhaust valve seat.</li>
+          <li>Turbocharger (di beberapa desain).</li>
+        </ul>
+        <div class="note"><b>Suhu Operasi Normal:</b> 65–90°C. Terlalu rendah → korosi asam (sulfur). Terlalu tinggi → thermal stress.</div>`,
+     formula:`<b>Temperatur Kontrol:</b><br>Minimum: 65°C (mencegah H₂SO₄ condensation)<br>Normal: 75–85°C<br>Alarm High: 90–95°C<br>Slow Down: 95–98°C`,
+     tags:['pendingin'],
+     links:defaultLinks('jacket water cooling marine engine')},
+
+    {n:37, q:"Apa penyebab temperatur air pendingin terlalu tinggi?",
+     a:`<h4>Penyebab Umum (Urut Berdasarkan Frekuensi)</h4>
+        <ol>
+          <li><b>Heat Exchanger Kotor</b> — scale, kerak, biofouling (paling umum).</li>
+          <li><b>Cooling Water Pump Bermasalah</b> — impeller aus, seal bocor, kavitasi.</li>
+          <li><b>Thermostat / Control Valve Rusak</b> — stuck closed.</li>
+          <li><b>Aliran SW Terhambat</b> — strainer kotor, katup tidak terbuka penuh.</li>
+          <li><b>Level Air Kurang</b> — kebocoran sistem, expansion tank low.</li>
+          <li><b>Beban Mesin Berlebih</b> — overload, exhaust valve bocor, injector bocor.</li>
+          <li><b>Ventilasi Engine Room Buruk</b> — ambient terlalu panas.</li>
+          <li><b>Udara Terperangkap</b> — air lock di sistem.</li>
+        </ol>`,
+     formula:`<b>Analisa:</b> Jika T<sub>FW out</sub> tinggi tapi T<sub>SW out</sub> normal → masalah di FW side (pompa, valve, scale internal).<br>Jika T<sub>SW out</sub> tinggi → masalah di SW side (strainer, pump, biofouling).`,
+     tags:['pendingin','troubleshoot'],
+     links:defaultLinks('high cooling water temperature marine engine troubleshooting')},
+
+    {n:38, q:"Apa fungsi Thermometer pada sistem pendingin?",
+     a:`<p><b>Thermometer</b> mengukur dan menampilkan temperatur fluida pada titik pengukuran, sebagai indikator utama kondisi sistem pendingin.</p>
+        <h4>Jenis Sensor Temperatur di Kapal</h4>
+        <ul>
+          <li><b>RTD (PT100)</b> — Resistance Temperature Detector, akurasi ±0,1°C.</li>
+          <li><b>Thermocouple (K, J, T)</b> — untuk suhu tinggi (exhaust gas).</li>
+          <li><b>Thermistor</b> — NTC/PTC, untuk range terbatas.</li>
+          <li><b>Bimetal</b> — untuk indikator lokal.</li>
+        </ul>
+        <div class="note"><b>Sinyal Transmitter:</b> 4–20 mA linier atau HART untuk PLC/DCS.</div>`,
+     formula:`<b>RTD PT100:</b> R(T) = R<sub>0</sub> + α × R<sub>0</sub> × (T − T<sub>0</sub>)<br><small>R<sub>0</sub>=100Ω @ 0°C, α=0,00385/°C</small><br><br><b>Thermocouple:</b> EMF = f(T<sub>hot</sub> − T<sub>cold</sub>) — Seebeck Effect`,
+     tags:['instrumentasi','eto','formula'],
+     links:defaultLinks('RTD thermocouple marine temperature sensor')},
+
+    {n:39, q:"Mengapa kebocoran air laut pada heat exchanger harus diperhatikan?",
+     a:`<p>Kebocoran air laut ke sistem air tawar adalah <em>kontaminasi serius</em> yang dapat menyebabkan korosi cepat, scaling, dan kerusakan seluruh sistem pendingin.</p>
+        <h4>Dampak Kebocoran</h4>
+        <ul>
+          <li><b>Korosi Klorida</b> — klorin dari air laut menyerang logam.</li>
+          <li><b>Scale CaCO₃</b> — endapan kalsium karbonat menurunkan efisiensi.</li>
+          <li><b>Foaming</b> — surfaktan alami laut menyebabkan busa, mengurangi transfer panas.</li>
+          <li><b>Penurunan pH</b> — mengganggu inhibitor kimia.</li>
+          <li><b>Kerusakan pompa & seal</b> — abrasi.</li>
+        </ul>
+        <div class="warn"><b>Deteksi:</b> Uji klorida air tawar (> 50 ppm indikasi kebocoran), uji konduktivitas, inspeksi visual tube sheet.</div>`,
+     formula:`<b>Uji Klorida:</b> Cl⁻ titrasi dengan AgNO₃<br><br>Air tawar normal: < 20 ppm Cl⁻<br>Indikasi kebocoran: > 50 ppm Cl⁻<br>Kritis: > 200 ppm Cl⁻`,
+     tags:['pendingin','formula'],
+     links:defaultLinks('heat exchanger leak sea water contamination')},
+
+    {n:40, q:"Apa yang harus dilakukan jika temperatur mesin meningkat di luar batas normal?",
+     a:`<h4>Prosedur Sistematis</h4>
+        <ol>
+          <li><b>Konfirmasi Alarm</b> — cek panel HMI, bandingkan dengan gauge lokal.</li>
+          <li><b>Reduce Load</b> — turunkan RPM / beban mesin bertahap.</li>
+          <li><b>Informasikan</b> — Duty Engineer / Chief Engineer.</li>
+          <li><b>Cek Aliran & Tekanan</b> — apakah pompa jalan, valve terbuka, DP filter.</li>
+          <li><b>Cek Level Air</b> — expansion tank level, kemungkinan kebocoran.</li>
+          <li><b>Cek Strainer SW</b> — kemungkinan kotor.</li>
+          <li><b>Cek Ventilasi Engine Room</b> — apakah fan jalan.</li>
+          <li><b>Slow Down / Stop</b> — bila suhu terus naik melebihi setpoint trip.</li>
+          <li><b>Investigasi</b> — setelah aman, periksa heat exchanger, pompa, thermostat, sensor.</li>
+        </ol>
+        <div class="warn"><b>Jangan:</b> mem-<em>bypass</em> proteksi, menambah beban, atau mengabaikan tren naik.</div>`,
+     formula:`<b>Setpoint Tipikal Mesin Diesel:</b><br>Jacket Water Normal: 75–85°C<br>Alarm High: 90–95°C<br>Slow Down: 95–98°C<br>Trip: 98–100°C<br><br><b>Piston Cooling Oil:</b> Normal 55–65°C, Alarm 70°C`,
+     tags:['pendingin','keselamatan','prosedur'],
+     links:defaultLinks('engine overheating ship procedure')}
+  ]
+},
+
+/* ============ BAGIAN E ============ */
+{
+  id:"E", short:"Generator", title:"Generator dan Sistem Kelistrikan", range:"41–50",
+  questions:[
+    {n:41, q:"Apa fungsi generator kapal?",
+     a:`<p><b>Generator</b> mengubah <em>energi mekanis menjadi energi listrik</em> untuk mensuplai seluruh kebutuhan listrik kapal.</p>
+        <h4>Beban Listrik Utama Kapal</h4>
+        <ul>
+          <li>Pompa-pompa (ballast, bilge, cooling, fuel).</li>
+          <li>HVAC & Refrigeration.</li>
+          <li>Penerangan (interior & navigasi).</li>
+          <li>Navigasi & komunikasi (radar, GMDSS, AIS).</li>
+          <li>Bow thruster (beban besar, kadang dedicated gen).</li>
+          <li>Winch & crane.</li>
+          <li>Galley & accommodation.</li>
+        </ul>
+        <div class="note"><b>Konfigurasi:</b> 2–4 generator paralel dengan load sharing. Emergency generator terpisah.</div>`,
+     formula:`<b>Daya Generator 3-Fasa:</b> S = √3 × V<sub>L</sub> × I<sub>L</sub> (VA)<br><b>Daya Aktif:</b> P = S × cos φ (W)<br><b>Daya Reaktif:</b> Q = S × sin φ (VAR)<br><br><b>Load Factor:</b> LF = (Daya Rata-rata) ÷ (Daya Puncak)`,
+     tags:['generator','eto','formula'],
+     links:defaultLinks('marine generator electrical system ship')},
+
+    {n:42, q:"Apa fungsi alternator?",
+     a:`<p><b>Alternator</b> adalah generator AC yang mengubah energi putar menjadi <em>energi listrik arus bolak-balik</em> melalui induksi elektromagnetik (Faraday's Law).</p>
+        <h4>Prinsip Kerja</h4>
+        <ol>
+          <li>Rotor (field winding) diputar oleh prime mover.</li>
+          <li>Arus DC eksitasi mengalir di rotor → menghasilkan medan magnet.</li>
+          <li>Medan magnet berputar memotong stator winding.</li>
+          <li>Timbul EMF induksi di stator → tegangan AC 3 fasa.</li>
+        </ol>
+        <div class="note"><b>Jenis Rotor:</b> Salient Pole (RPM rendah, 4–12 kutub) vs Cylindrical/Smooth (RPM tinggi, 2–4 kutub).</div>`,
+     formula:`<b>EMF Induksi (Faraday):</b> E = 4,44 × f × N × Φ × K<sub>w</sub><br><small>f=frekuensi, N=jumlah lilitan, Φ=flux, K<sub>w</sub>=winding factor</small><br><br><b>Frekuensi:</b> f = (N × P) ÷ 120`,
+     tags:['generator','formula','eto'],
+     links:defaultLinks('alternator working principle AC generator')},
+
+    {n:43, q:"Apa yang dimaksud dengan AVR?",
+     a:`<p><b>AVR (Automatic Voltage Regulator)</b> adalah perangkat elektronik yang mengatur <em>arus eksitasi field winding</em> untuk mempertahankan tegangan terminal generator konstan (biasanya ±1%) meskipun beban berubah.</p>
+        <h4>Fungsi AVR</h4>
+        <ul>
+          <li>Menjaga tegangan output stabil saat beban naik/turun.</li>
+          <li>Mengatur reactive power sharing pada generator paralel.</li>
+          <li>Membatasi over-excitation & under-excitation.</li>
+          <li>Menyediakan <b>Volt/Hz</b> limiter untuk proteksi saat underfrequency.</li>
+        </ul>
+        <div class="note"><b>Merek Umum:</b> Basler, Stamford, Leroy Somer, ABB Unitrol.</div>`,
+     formula:`<b>Respons AVR:</b> V<sub>out</sub> = V<sub>ref</sub> + K<sub>p</sub> × e + K<sub>i</sub> × ∫e dt + K<sub>d</sub> × (de/dt)<br><small>PID Controller</small><br><br><b>Droop:</b> %droop = (V<sub>NL</sub> − V<sub>FL</sub>) ÷ V<sub>FL</sub> × 100%`,
+     tags:['generator','eto','formula'],
+     links:defaultLinks('AVR automatic voltage regulator generator')},
+
+    {n:44, q:"Apa fungsi Excitation System?",
+     a:`<p><b>Excitation System</b> menyediakan dan mengendalikan <em>arus medan DC</em> pada rotor generator sinkron agar dapat menghasilkan tegangan terminal sesuai kebutuhan.</p>
+        <h4>Jenis Excitation</h4>
+        <ul>
+          <li><b>Static Excitation</b> — dari busbar via transformer + thyristor.</li>
+          <li><b>Rotating Exciter</b> — exciter AC + rotating rectifier (brushless).</li>
+          <li><b>Brushless</b> — tanpa slip ring & brush → perawatan minimal.</li>
+          <li><b>DC Exciter</b> — klasik, jarang di kapal modern.</li>
+        </ul>
+        <div class="note"><b>PMG (Permanent Magnet Generator)</b> sering diintegrasikan untuk power supply AVR — tidak bergantung pada tegangan busbar saat black start.</div>`,
+     formula:`<b>Kurva Eksitasi:</b> V<sub>t</sub> = f(I<sub>f</sub>) saat beban konstan<br><br><b>Open Circuit Characteristic (OCC)</b> & <b>Short Circuit Characteristic (SCC)</b> menentukan SCR<br><br><b>SCR:</b> I<sub>f,OC</sub> ÷ I<sub>f,SC</sub> pada tegangan rated`,
+     tags:['generator','eto','formula'],
+     links:defaultLinks('generator excitation system brushless')},
+
+    {n:45, q:"Apa fungsi Main Switchboard (MSB)?",
+     a:`<p><b>MSB (Main Switchboard)</b> menerima dan mendistribusikan daya listrik dari generator ke seluruh konsumen, serta menyediakan proteksi, pengukuran, dan pengendalian.</p>
+        <h4>Komponen MSB</h4>
+        <ul>
+          <li><b>ACB (Air Circuit Breaker)</b> — breaker utama generator, 1000–6000 A.</li>
+          <li><b>Busbar</b> — konduktor utama penghubung.</li>
+          <li><b>Metering</b> — voltmeter, ammeter, wattmeter, frequency meter, power factor meter.</li>
+          <li><b>Protection Relay</b> — overcurrent, earth fault, reverse power, differential.</li>
+          <li><b>Sync Panel</b> — synchroscope, voltage & frequency matching.</li>
+          <li><b>Bus Tie Breaker</b> — penghubung dua busbar section.</li>
+        </ul>
+        <div class="warn"><b>Arc Flash:</b> MSB adalah area bahaya busur api — wajib APD lengkap & prosedur LOTO.</div>`,
+     formula:`<b>Busbar Sizing:</b> I<sub>rated</sub> = P<sub>total</sub> ÷ (√3 × V × cos φ)<br><br><b>Short Circuit Current:</b> I<sub>sc</sub> = V ÷ Z<sub>total</sub><br><small>I<sub>sc</sub> biasanya 20–30× I<sub>rated</sub> untuk beberapa cycle pertama</small>`,
+     tags:['eto','listrik','formula'],
+     links:defaultLinks('main switchboard ship electrical')},
+
+    {n:46, q:"Apa fungsi Circuit Breaker?",
+     a:`<p><b>Circuit Breaker</b> menghubungkan atau memutus rangkaian listrik dan membuka rangkaian ketika kondisi gangguan terdeteksi oleh sistem proteksi.</p>
+        <h4>Jenis CB di Kapal</h4>
+        <ul>
+          <li><b>ACB (Air Circuit Breaker)</b> — untuk generator & bus tie utama, 1000–6300 A.</li>
+          <li><b>MCCB (Molded Case CB)</b> — untuk feeder distribusi, 100–1600 A.</li>
+          <li><b>MCB (Miniature CB)</b> — untuk sirkuit kecil, < 100 A.</li>
+          <li><b>VCB (Vacuum CB)</b> — untuk tegangan tinggi (6,6 kV / 11 kV).</li>
+        </ul>
+        <div class="note"><b>Rating Penting:</b> Rated Current, Rated Voltage, Breaking Capacity (Icu), Making Capacity (Icm), Trip Curve (B/C/D/K).</div>`,
+     formula:`<b>Persamaan CB Trip:</b> I<sub>fault</sub> > I<sub>set</sub> → CB trip<br><br><b>Time-Current Curve:</b><br>t = K ÷ (I ÷ I<sub>n</sub>)<sup>n</sup><br><small>Long time delay, short time delay, instantaneous</small>`,
+     tags:['eto','listrik','formula'],
+     links:defaultLinks('marine circuit breaker types ACB MCCB')},
+
+    {n:47, q:"Apa yang dimaksud dengan tegangan tiga fase (three-phase voltage)?",
+     a:`<p><b>Tegangan Tiga Fasa</b> adalah sistem listrik AC dengan tiga tegangan bolak-balik yang memiliki <em>perbedaan sudut fase 120°</em> — R, S, T (atau L1, L2, L3).</p>
+        <h4>Karakteristik Sistem 3 Fasa</h4>
+        <ul>
+          <li>Jumlah vektor arus = 0 (seimbang) → I<sub>R</sub> + I<sub>S</sub> + I<sub>T</sub> = 0.</li>
+          <li>Daya lebih stabil dibanding 1 fasa.</li>
+          <li>Dapat menghasilkan medan magnet putar → dasar motor induksi 3 fasa.</li>
+          <li>Efisiensi transmisi lebih tinggi.</li>
+        </ul>
+        <div class="note"><b>Standar Kapal:</b> 440 V / 60 Hz (Amerika) atau 400 V / 50 Hz (Eropa). HV system: 6,6 kV atau 11 kV untuk kapal besar.</div>`,
+     formula:`<b>Tegangan Fasa (Line-to-Neutral):</b> V<sub>ph</sub> = V<sub>L</sub> ÷ √3<br><small>Contoh: V<sub>L</sub>=440V → V<sub>ph</sub> ≈ 254V</small><br><br><b>Daya 3 Fasa:</b> P = √3 × V<sub>L</sub> × I<sub>L</sub> × cos φ<br><br><b>Daya Reaktif:</b> Q = √3 × V<sub>L</sub> × I<sub>L</sub> × sin φ`,
+     tags:['eto','listrik','formula'],
+     links:defaultLinks('three phase voltage ship electrical system')},
+
+    {n:48, q:"Apa fungsi Frequency Meter pada generator?",
+     a:`<p><b>Frequency Meter</b> mengukur frekuensi listrik keluaran generator (biasanya 50 atau 60 Hz), yang berhubungan langsung dengan kecepatan putar dan jumlah kutub generator.</p>
+        <h4>Peran di Operasi Kapal</h4>
+        <ul>
+          <li><b>Sinkronisasi</b> — frekuensi generator harus sama dengan busbar.</li>
+          <li><b>Load Sharing</b> — kontrol governor untuk paralel.</li>
+          <li><b>Alarm</b> — frekuensi di luar ±5% → proteksi.</li>
+          <li><b>Deteksi masalah prime mover</b> — governor fault, fuel issue.</li>
+        </ul>`,
+     formula:`<b>Frekuensi:</b> f = (N × P) ÷ 120<br><br>60 Hz: N = 3600/P<br>  P=2 → 1800 RPM (4-pole)\n  P=4 → 900 RPM (8-pole)\n<br>50 Hz: N = 3000/P<br>  P=2 → 1500 RPM (4-pole)\n  P=4 → 750 RPM (8-pole)`,
+     tags:['eto','listrik','formula'],
+     links:defaultLinks('frequency meter generator ship synchronization')},
+
+    {n:49, q:"Apa yang dimaksud dengan sinkronisasi generator?",
+     a:`<p><b>Sinkronisasi</b> adalah proses menyamakan parameter listrik generator dengan busbar sebelum pemutus ditutup untuk operasi paralel.</p>
+        <h4>Syarat Sinkronisasi (WAJIB)</h4>
+        <ol>
+          <li><b>Tegangan sama</b> — V<sub>gen</sub> ≈ V<sub>bus</sub> (±2%).</li>
+          <li><b>Frekuensi sama</b> — f<sub>gen</sub> ≈ f<sub>bus</sub> (±0,1 Hz).</li>
+          <li><b>Urutan fasa sama</b> — R-S-T identik.</li>
+          <li><b>Sudut fasa sama</b> — beda sudut mendekati 0° (indikator synchroscope di 12 o'clock).</li>
+        </ol>
+        <div class="warn"><b>Bahaya:</b> Close breaker saat tidak sinkron → arus sirkulasi besar → kerusakan generator, breaker, atau busbar. Bisa menyebabkan blackout total.</div>`,
+     formula:`<b>Arus Sirkulasi:</b> I<sub>sync</sub> = ΔV ÷ Z<sub>total</sub><br><br><b>Jika ΔV = 10% V<sub>rated</sub>, Z = 15%:</b><br>I<sub>sync</sub> ≈ (0,1 × V) ÷ (0,15 × V/I<sub>n</sub>) ≈ 0,67 × I<sub>n</sub> — cukup besar untuk trip proteksi<br><br><b>Syarat:</b> ΔV<sub>max</sub> = 2%, Δf<sub>max</sub> = 0,1 Hz`,
+     tags:['eto','listrik','formula','keselamatan'],
+     links:defaultLinks('generator synchronization procedure ship')},
+
+    {n:50, q:"Mengapa generator tidak boleh langsung diparalelkan tanpa pemeriksaan sinkronisasi?",
+     a:`<p>Karena perbedaan parameter listrik (tegangan, frekuensi, urutan fasa, sudut fasa) akan menimbulkan <em>arus kejut (inrush) dan torsi mekanis besar</em> yang dapat merusak peralatan.</p>
+        <h4>Akibat Sinkronisasi Salah</h4>
+        <ul>
+          <li><b>Arus Sirkulasi Besar</b> — memanaskan winding & trip proteksi.</li>
+          <li><b>Torsi Kejut</b> — merusak poros, coupling, dan bearing.</li>
+          <li><b>Kerusakan Breaker</b> — busur api, kontak meleleh.</li>
+          <li><b>Blackout Total</b> — jika busbar utama trip.</li>
+          <li><b>Kerusakan AVR & Exciter</b> — akibat gangguan tegangan.</li>
+        </ul>
+        <div class="warn"><b>Prosedur Aman:</b> Gunakan <em>synchroscope</em> atau <em>sync-check relay (25)</em>. Perlambat generator dengan governor, atur voltage dengan AVR, tunggu sync indicator di posisi 12 o'clock, baru close breaker.</div>`,
+     formula:`<b>Sync Check Relay Setting:</b><br>ΔV < 5%, Δf < 0,2 Hz, Δφ < 10°<br><br><b>Waktu Tunggu:</b> Perubahan frekuensi 0,05 Hz/detik → tunggu hingga Δφ ≈ 0`,
+     tags:['eto','listrik','keselamatan'],
+     links:defaultLinks('generator paralleling synchronization danger')}
+  ]
+},
+
+/* ============ BAGIAN F ============ */
+{
+  id:"F", short:"Pompa & Katup", title:"Pompa, Katup, dan Perpipaan", range:"51–60",
+  questions:[
+    {n:51, q:"Apa fungsi pompa sentrifugal (Centrifugal Pump)?",
+     a:`<p><b>Centrifugal Pump</b> memindahkan fluida dengan memanfaatkan <em>energi putar impeller</em> untuk meningkatkan energi kinetik, yang kemudian dikonversi menjadi tekanan oleh volute atau diffuser.</p>
+        <h4>Bagian Utama</h4>
+        <ul>
+          <li><b>Casing / Volute</b> — rumah pompa.</li>
+          <li><b>Impeller</b> — komponen berputar, memberikan energi.</li>
+          <li><b>Suction Eye</b> — inlet impeller.</li>
+          <li><b>Discharge Nozzle</b> — outlet.</li>
+          <li><b>Shaft & Bearing</b> — tumpuan poros.</li>
+          <li><b>Seal / Gland</b> — mencegah kebocoran.</li>
+        </ul>
+        <div class="note"><b>Aplikasi di Kapal:</b> Ballast, cooling SW, general service, fire pump, cargo pump (deepwell).</div>`,
+     formula:`<b>Head Pompa:</b> H = H<sub>static</sub> + H<sub>friction</sub> + H<sub>velocity</sub><br><br><b>Daya Hidrolik:</b> P<sub>h</sub> = (ρ × g × Q × H) ÷ 1000 (kW)<br><small>ρ=kg/m³, Q=m³/s, H=m</small><br><br><b>Daya Shaft:</b> P<sub>s</sub> = P<sub>h</sub> ÷ η<br><small>η = 0,6–0,85</small>`,
+     tags:['pompa','formula'],
+     links:defaultLinks('centrifugal pump marine application')},
+
+    {n:52, q:"Apa fungsi Impeller?",
+     a:`<p><b>Impeller</b> adalah <em>bagian berputar utama pompa sentrifugal</em> yang memberikan energi ke fluida melalui aksi gaya sentrifugal dan gaya angkat sudu (vane).</p>
+        <h4>Jenis Impeller</h4>
+        <ul>
+          <li><b>Closed Impeller</b> — ada shroud depan-belakang, efisiensi tinggi (untuk air bersih).</li>
+          <li><b>Open Impeller</b> — tanpa shroud depan, cocok untuk fluida berserat/kotor.</li>
+          <li><b>Semi-Open</b> — kompromi keduanya.</li>
+          <li><b>Single vs Double Suction</b> — double untuk debit besar, aksial balance.</li>
+        </ul>`,
+     formula:`<b>Kecepatan Ujung:</b> u = π × D × N ÷ 60<br><small>D=diameter, N=RPM</small><br><br><b>Head Euler:</b> H = (u₂ × c<sub>u2</sub> − u₁ × c<sub>u1</sub>) ÷ g`,
+     tags:['pompa','formula'],
+     links:defaultLinks('impeller pump design types')},
+
+    {n:53, q:"Apa fungsi Suction Pipe?",
+     a:`<p><b>Suction Pipe</b> membawa fluida dari sumber (tank, sea chest) menuju sisi masuk pompa. Desainnya kritis karena berhubungan dengan NPSH dan kavitasi.</p>
+        <h4>Persyaratan Suction Line</h4>
+        <ul>
+          <li>Diameter cukup → kecepatan rendah (1–2 m/s) → rendah losses.</li>
+          <li>Sesingkat mungkin, hindari belokan tajam.</li>
+          <li>Wajib dilengkapi <b>strainer</b> (kasa) di ujung.</li>
+          <li>Harus <b>fully primed</b> sebelum start.</li>
+          <li>Untuk SW: material tahan korosi (Gunmetal, CuNi).</li>
+        </ul>`,
+     formula:`<b>Head Loss (Darcy):</b> h<sub>f</sub> = f × (L÷D) × (v²÷2g)<br><small>f=friction factor, L=panjang pipa, D=diameter, v=kecepatan</small><br><br><b>NPSH Available:</b> NPSH<sub>a</sub> = (P<sub>atm</sub> − P<sub>v</sub>)÷(ρg) + h<sub>s</sub> − h<sub>f</sub>`,
+     tags:['pompa','formula'],
+     links:defaultLinks('pump suction piping design marine')},
+
+    {n:54, q:"Apa fungsi Discharge Pipe?",
+     a:`<p><b>Discharge Pipe</b> membawa fluida dari sisi keluar pompa ke sistem atau tujuan akhir, umumnya dilengkapi <em>check valve, gate valve, relief valve, pressure gauge</em>.</p>
+        <h4>Fitting Standar pada Discharge Line</h4>
+        <ul>
+          <li><b>Non-Return Valve (NRV)</b> — mencegah aliran balik saat pompa stop.</li>
+          <li><b>Discharge Valve</b> — isolasi pompa.</li>
+          <li><b>Pressure Gauge</b> — memantau head.</li>
+          <li><b>Relief Valve</b> — untuk positive displacement pump.</li>
+          <li><b>Flow Meter</b> — mengukur debit.</li>
+        </ul>`,
+     formula:`<b>Kecepatan Discharge:</b> v = Q ÷ A<br><small>Q=debit, A=luas penampang pipa</small><br><br>Tipikal discharge velocity: 2–4 m/s (discharge) vs 1–2 m/s (suction)`,
+     tags:['pompa','formula'],
+     links:defaultLinks('pump discharge pipe fittings marine')},
+
+    {n:55, q:"Apa fungsi Gate Valve?",
+     a:`<p><b>Gate Valve</b> digunakan untuk <em>membuka atau menutup aliran (on-off)</em>, bukan untuk mengatur (throttling) secara terus-menerus.</p>
+        <h4>Karakteristik</h4>
+        <ul>
+          <li>Aliran lurus → pressure drop kecil saat terbuka penuh.</li>
+          <li>Operasi: fully open atau fully closed.</li>
+          <li>Jika throttled → erosi disc dan seat.</li>
+          <li>Jenis: Rising Stem vs Non-Rising Stem.</li>
+        </ul>
+        <div class="note"><b>Waktu Buka/Tutup:</b> Multi-turn (banyak putaran) — bukan quick-acting.</div>`,
+     formula:null,
+     tags:['katup'],
+     links:defaultLinks('gate valve working principle marine')},
+
+    {n:56, q:"Apa fungsi Globe Valve?",
+     a:`<p><b>Globe Valve</b> dapat digunakan untuk <em>mengatur aliran (throttling)</em> dan juga untuk membuka/menutup. Desainnya berbentuk bola dengan plug yang bergerak lurus.</p>
+        <h4>Karakteristik</h4>
+        <ul>
+          <li>Pressure drop lebih besar dari gate valve.</li>
+          <li>Kontrol aliran halus → cocok untuk regulasi.</li>
+          <li>Sealing lebih baik.</li>
+          <li>Jenis: T-pattern, Y-pattern, angle-pattern.</li>
+        </ul>`,
+     formula:`<b>Flow Coefficient:</b> C<sub>v</sub> = Q × √(SG ÷ ΔP)<br><small>Q=gpm, SG=specific gravity, ΔP=psi</small><br><br>K<sub>v</sub> (SI): Q (m³/h) pada ΔP = 1 bar`,
+     tags:['katup','formula'],
+     links:defaultLinks('globe valve flow control marine')},
+
+    {n:57, q:"Apa fungsi Check Valve?",
+     a:`<p><b>Check Valve (Non-Return Valve)</b> mencegah aliran balik dengan mekanisme yang hanya membuka searah aliran.</p>
+        <h4>Jenis Check Valve</h4>
+        <ul>
+          <li><b>Swing Check</b> — disc berayun pada hinge.</li>
+          <li><b>Lift Check</b> — disc naik-turun.</li>
+          <li><b>Dual Plate</b> — dua plate, ringan & compact.</li>
+          <li><b>Wafer Type</b> — dipasang antara flange.</li>
+        </ul>
+        <div class="note"><b>Wajib Ada di:</b> Discharge pompa, discharge kompresor, steering gear, fuel injection, boiler feed.</div>`,
+     formula:null,
+     tags:['katup','keselamatan'],
+     links:defaultLinks('check valve non return marine')},
+
+    {n:58, q:"Apa fungsi Butterfly Valve?",
+     a:`<p><b>Butterfly Valve</b> mengatur atau memutus aliran menggunakan <em>piringan (disc) yang berputar 90°</em> di dalam badan katup.</p>
+        <h4>Karakteristik</h4>
+        <ul>
+          <li>Compact & ringan.</li>
+          <li>Quick-acting (quarter turn).</li>
+          <li>Cocok untuk diameter besar (ballast, sea water).</li>
+          <li>Pressure drop sedang.</li>
+          <li>Seat: EPDM, NBR, PTFE, metal.</li>
+        </ul>`,
+     formula:null,
+     tags:['katup'],
+     links:defaultLinks('butterfly valve marine ballast system')},
+
+    {n:59, q:"Apa yang dimaksud dengan Cavitation pada pompa?",
+     a:`<p><b>Cavitation</b> adalah <em>terbentuknya dan runtuhnya gelembung uap</em> di dalam fluida akibat tekanan lokal turun di bawah tekanan uap jenuh, kemudian naik kembali secara tiba-tiba.</p>
+        <h4>Penyebab Cavitation</h4>
+        <ul>
+          <li><b>NPSH Available < NPSH Required</b> — penyebab utama.</li>
+          <li>Suction lift terlalu tinggi.</li>
+          <li>Filter/strainer suction kotor.</li>
+          <li>Kecepatan aliran terlalu tinggi.</li>
+          <li>Suhu fluida terlalu tinggi (uap mudah terbentuk).</li>
+        </ul>
+        <h4>Dampak</h4>
+        <ul>
+          <li>Suara berisik (seperti kerikil).</li>
+          <li>Getaran & penurunan performa.</li>
+          <li>Kerusakan impeller (pitting).</li>
+        </ul>`,
+     formula:`<b>NPSH Available:</b> NPSH<sub>a</sub> = P<sub>atm</sub>÷(ρg) + h<sub>s</sub> − h<sub>f</sub> − P<sub>v</sub>÷(ρg)<br><small>h<sub>s</sub>=suction head, h<sub>f</sub>=friction loss, P<sub>v</sub>=vapor pressure</small><br><br><b>Syarat:</b> NPSH<sub>a</sub> > NPSH<sub>r</sub> + margin (0,5–1 m)`,
+     tags:['pompa','formula','troubleshoot'],
+     links:defaultLinks('pump cavitation NPSH marine')},
+
+    {n:60, q:"Mengapa pompa harus dipastikan terisi cairan sebelum dijalankan jika pompa memerlukan priming?",
+     a:`<p><b>Priming</b> adalah proses mengisi pompa dan suction line dengan cairan sebelum start. Centrifugal pump <em>tidak dapat memompa udara</em> — jika tidak diprime, pompa akan <b>dry running</b>.</p>
+        <h4>Akibat Dry Running</h4>
+        <ul>
+          <li><b>Seal rusak</b> — mechanical seal terbakar karena tanpa pelumasan.</li>
+          <li><b>Impeller overheat</b> — gesekan dengan casing.</li>
+          <li><b>Bearing gagal</b> — panas berlebih.</li>
+          <li><b>Casing retak</b> — thermal shock saat cairan masuk.</li>
+          <li><b>Kehilangan performa</b> — pompa tidak mengisap.</li>
+        </ul>
+        <div class="note"><b>Self-Priming Pump</b> tidak butuh priming manual karena ada ruang udara (air pocket) yang memungkinkan pengisapan awal.</div>`,
+     formula:`<b>Waktu Priming:</b> t = V ÷ Q<sub>priming</sub><br><small>V=volume pipa, Q=debit priming</small><br><br><b>Suhu Dry Run:</b> Bisa > 200°C dalam 30 detik — batas seal umumnya 150°C`,
+     tags:['pompa','keselamatan'],
+     links:defaultLinks('pump priming dry running damage marine')}
+  ]
+},
+
+/* ============ BAGIAN G ============ */
+{
+  id:"G", short:"Kompresor & Boiler", title:"Kompresor, Udara Start, dan Boiler", range:"61–70",
+  questions:[
+    {n:61, q:"Apa fungsi Air Compressor di kapal?",
+     a:`<p><b>Air Compressor</b> menghasilkan <em>udara bertekanan</em> untuk berbagai kebutuhan operasional kapal.</p>
+        <h4>Aplikasi Udara Bertekanan di Kapal</h4>
+        <ul>
+          <li><b>Starting Air</b> — 25–30 bar untuk start main engine.</li>
+          <li><b>Control Air</b> — 7 bar untuk valve, pneumatic control.</li>
+          <li><b>Service Air</b> — untuk workshop, cleaning, tools.</li>
+          <li><b>Instrument Air</b> — untuk pneumatik instrumen.</li>
+          <li><b>Whistle / Horn</b> — signaling.</li>
+          <li><b>Quick Closing Valve</b> — safety.</li>
+        </ul>
+        <div class="note"><b>Jenis:</b> Reciprocating (untuk high pressure), Screw (untuk continuous), Centrifugal (untuk besar).</div>`,
+     formula:`<b>Hukum Gas Ideal:</b> P₁V₁÷T₁ = P₂V₂÷T₂<br><br><b>Daya Kompresi (Adiabatik):</b> P = (n÷(n−1)) × P₁V₁ × [(P₂÷P₁)^((n−1)/n) − 1]<br><small>n=1,4 untuk udara</small>`,
+     tags:['kompresor','formula'],
+     links:defaultLinks('marine air compressor ship starting air')},
+
+    {n:62, q:"Apa fungsi Starting Air System?",
+     a:`<p><b>Starting Air System</b> menyimpan dan menyalurkan udara bertekanan (biasanya <em>25–30 bar</em>) untuk memutar mesin induk saat start.</p>
+        <h4>Komponen</h4>
+        <ul>
+          <li><b>Starting Air Compressor</b> — mengisi receiver.</li>
+          <li><b>Starting Air Receiver</b> — 2 unit, kapasitas cukup untuk 12× start berturut-turut.</li>
+          <li><b>Reducing Valve</b> — turunkan tekanan ke 7–8 bar untuk starting.</li>
+          <li><b>Air Start Valve</b> — di cylinder head, timing via camshaft.</li>
+          <li><b>Pilot Valve</b> — distributor udara kontrol.</li>
+          <li><b>Safety Valve</b> — di receiver.</li>
+          <li><b>Drain Valve</b> — buang kondensat.</li>
+        </ul>`,
+     formula:`<b>Kapasitas Receiver:</b><br>V = (n × V<sub>engine</sub> × P<sub>start</sub>) ÷ (P<sub>max</sub> − P<sub>min</sub>)<br><small>n=jumlah start, umumnya 12× tanpa recharge</small>`,
+     tags:['kompresor','formula'],
+     links:defaultLinks('starting air system marine diesel engine')},
+
+    {n:63, q:"Mengapa starting air receiver harus dikuras secara berkala?",
+     a:`<p>Untuk <em>membuang air kondensat</em> dan kontaminan yang dapat menyebabkan korosi, gangguan peralatan, atau kondisi berbahaya.</p>
+        <h4>Bahaya Jika Tidak Dikuras</h4>
+        <ul>
+          <li><b>Korosi Internal Receiver</b> — dinding menipis, risiko pecah.</li>
+          <li><b>Air Masuk ke Engine</b> — bisa menyebabkan water hammer / kerusakan katup.</li>
+          <li><b>Emulsi dengan Oli Kompresor</b> — merusak pelumasan compressor.</li>
+          <li><b>Membeku di Iklim Dingin</b> — menyumbat saluran.</li>
+          <li><b>Bakteri & Sludge</b> — pertumbuhan biologis.</li>
+        </ul>
+        <div class="note"><b>Frekuensi:</b> Drain harian (manual atau auto trap), inspeksi internal tiap 2 tahun, hydrotest tiap 5 tahun.</div>`,
+     formula:`<b>Dew Point:</b> Setiap penurunan 10°C, kelembapan turun ≈ 50%<br><br><b>Auto Drain Interval:</b> Biasanya setiap 15–30 menit operasi kompresor`,
+     tags:['kompresor','keselamatan'],
+     links:defaultLinks('air receiver drain condensate marine')},
+
+    {n:64, q:"Apa fungsi Safety Valve pada air receiver?",
+     a:`<p><b>Safety Valve</b> melindungi bejana tekan dari <em>tekanan berlebih</em> dengan melepaskan tekanan sesuai setelan (biasanya 10% di atas working pressure).</p>
+        <h4>Persyaratan</h4>
+        <ul>
+          <li>Set pressure: ≤ MAWP (Maximum Allowable Working Pressure).</li>
+          <li>Kapasitas ≥ kapasitas compressor discharge.</li>
+          <li>Diuji & disegel oleh class surveyor.</li>
+          <li>Wajib dilengkapi <b>Easing Gear</b> untuk manual lift test.</li>
+        </ul>
+        <div class="warn"><b>DILARANG:</b> Menyetel ulang, memblokir, atau menyegel safety valve tanpa otorisasi class.</div>`,
+     formula:`<b>Set Pressure:</b> P<sub>set</sub> = 1,1 × P<sub>working</sub><br><br>Contoh: Working 30 bar → set 33 bar<br><br><b>Kapasitas Relief:</b> Q<sub>relief</sub> ≥ Q<sub>compressor</sub>`,
+     tags:['keselamatan','formula'],
+     links:defaultLinks('safety valve air receiver marine')},
+
+    {n:65, q:"Apa fungsi Boiler di kapal?",
+     a:`<p><b>Boiler</b> menghasilkan <em>uap atau air panas</em> untuk kebutuhan pemanasan dan proses di kapal.</p>
+        <h4>Aplikasi Boiler di Kapal</h4>
+        <ul>
+          <li><b>Fuel Oil Heating</b> — memanaskan HFO agar viskositas sesuai.</li>
+          <li><b>Accommodation Heating</b> — pemanas ruang & air panas.</li>
+          <li><b>Galley</b> — untuk memasak.</li>
+          <li><b>Tank Cleaning</b> — steam untuk cargo tank.</li>
+          <li><b>Fresh Water Generator</b> — sumber panas.</li>
+          <li><b>Fire Main Steam Smothering</b> — pemadam kebakaran (kapal tanker).</li>
+        </ul>
+        <div class="note"><b>Jenis:</b> Water-Tube (kapasitas besar, tekanan tinggi) & Fire-Tube (kapasitas kecil, tekanan rendah).</div>`,
+     formula:`<b>Efisiensi Boiler:</b> η = (Q<sub>steam</sub> ÷ Q<sub>fuel</sub>) × 100%<br><small>Q<sub>steam</sub>=enthalpi uap, Q<sub>fuel</sub>=nilai kalor bahan bakar</small><br><br><b>Kapasitas Boiler:</b> Q = ṁ<sub>steam</sub> × (h<sub>steam</sub> − h<sub>feed</sub>)`,
+     tags:['boiler','formula'],
+     links:defaultLinks('marine boiler auxiliary ship')},
+
+    {n:66, q:"Apa perbedaan Water-Tube Boiler dan Fire-Tube Boiler?",
+     a:`<h4>Perbandingan</h4>
+        <ul>
+          <li><b>Water-Tube:</b> air di dalam pipa, gas panas mengelilingi pipa. Cocok untuk kapasitas & tekanan tinggi. Contoh: D-type, A-type, O-type.</li>
+          <li><b>Fire-Tube:</b> gas panas di dalam pipa, air mengelilingi pipa. Cocok untuk kapasitas kecil & tekanan rendah. Contoh: Scotch Marine Boiler.</li>
+        </ul>
+        <h4>Keunggulan Water-Tube</h4>
+        <ul>
+          <li>Start cepat (steam dalam 15–30 menit).</li>
+          <li>Kapasitas uap besar per unit volume.</li>
+          <li>Tekanan bisa > 100 bar.</li>
+        </ul>
+        <h4>Keunggulan Fire-Tube</h4>
+        <ul>
+          <li>Konstruksi sederhana & murah.</li>
+          <li>Bisa pakai air tidak terlalu murni.</li>
+          <li>Kapasitas air besar → cocok untuk beban fluktuatif.</li>
+        </ul>`,
+     formula:`<b>Perpindahan Kalor:</b> Q = U × A × ΔT<sub>lm</sub><br><small>Water-tube: A lebih besar per volume → transfer panas lebih efisien</small>`,
+     tags:['boiler','formula'],
+     links:defaultLinks('water tube fire tube boiler comparison marine')},
+
+    {n:67, q:"Apa fungsi Feed Water Pump pada boiler?",
+     a:`<p><b>Feed Water Pump</b> memasok air umpan ke boiler pada tekanan yang memadai (biasanya 1,2–1,5× tekanan boiler) sesuai kebutuhan uap.</p>
+        <h4>Jenis Feed Pump</h4>
+        <ul>
+          <li><b>Reciprocating</b> — high pressure, kapasitas kecil.</li>
+          <li><b>Centrifugal Multistage</b> — kapasitas besar, umum di kapal.</li>
+          <li><b>Steam Turbine Driven</b> — untuk emergency backup.</li>
+        </ul>
+        <div class="note"><b>Feed Water Control:</b> Otomatis dengan 3-element controller (water level, steam flow, feedwater flow).</div>`,
+     formula:`<b>Kapasitas Feedwater:</b> Q<sub>fw</sub> = Q<sub>steam</sub> × 1,05 (dengan blowdown)<br><br><b>Tekanan Discharge:</b> P<sub>fw</sub> ≥ P<sub>boiler</sub> × 1,2 + losses`,
+     tags:['boiler','formula'],
+     links:defaultLinks('boiler feed water pump marine')},
+
+    {n:68, q:"Apa fungsi Boiler Pressure Gauge?",
+     a:`<p><b>Pressure Gauge</b> menunjukkan tekanan boiler agar operator dapat memantau kondisi operasi dan mengambil tindakan sesuai kebutuhan.</p>
+        <h4>Jenis Pressure Gauge</h4>
+        <ul>
+          <li><b>Bourdon Tube</b> — untuk tekanan menengah (5–60 bar).</li>
+          <li><b>Diaphragm</b> — untuk tekanan rendah, akurasi tinggi.</li>
+          <li><b>Bellows</b> — untuk tekanan rendah & differential.</li>
+          <li><b>Digital / Transmitter</b> — untuk monitoring & alarm.</li>
+        </ul>
+        <div class="warn"><b>Kalibrasi Wajib:</b> Setiap 12 bulan atau setelah perbaikan — sesuai class requirement.</div>`,
+     formula:`<b>Akurasi Gauge:</b> Error = (P<sub>indicated</sub> − P<sub>actual</sub>) ÷ P<sub>full scale</sub> × 100%<br><br>Kelas akurasi: 1,0 / 1,6 / 2,5 (%), semakin kecil semakin presisi`,
+     tags:['boiler','instrumentasi','formula'],
+     links:defaultLinks('boiler pressure gauge marine')},
+
+    {n:69, q:"Mengapa level air boiler harus dijaga?",
+     a:`<p>Level air boiler adalah <em>parameter paling kritis</em> — level salah dapat menyebabkan kerusakan serius atau ledakan.</p>
+        <h4>Bahaya Level Terlalu Rendah</h4>
+        <ul>
+          <li>Tube / shell overheat → deformasi / pecah.</li>
+          <li>Risiko <b>boiler explosion</b> (uap superheated kontak air).</li>
+          <li>Thermal stress pada material.</li>
+        </ul>
+        <h4>Bahaya Level Terlalu Tinggi</h4>
+        <ul>
+          <li><b>Priming / Carryover</b> — air terbawa bersama uap.</li>
+          <li>Merusak steam consumer (turbine, heating coil).</li>
+          <li>Menurunkan efisiensi.</li>
+        </ul>
+        <div class="note"><b>Alarm & Trip:</b> Low level alarm (LLL) → trip burner. High level alarm (HHL) → trip feed pump / alarm.</div>`,
+     formula:`<b>Level Normal:</b> 50% dari gauge glass<br><br><b>Setpoint Umum:</b><br>HH: 75% (High-High alarm)<br>H: 60% (High alarm)<br>N: 50% (Normal)<br>L: 40% (Low alarm)<br>LL: 25% (Low-Low trip)`,
+     tags:['boiler','keselamatan','formula'],
+     links:defaultLinks('boiler water level control safety')},
+
+    {n:70, q:"Apa tindakan jika tekanan boiler meningkat melebihi batas operasi?",
+     a:`<h4>Prosedur Darurat Boiler</h4>
+        <ol>
+          <li><b>Konfirmasi alarm</b> — cek gauge lokal vs HMI/transmitter.</li>
+          <li><b>Kurangi suplai bahan bakar</b> — turunkan burner firing rate.</li>
+          <li><b>Cek safety valve</b> — pastikan membuka pada set pressure.</li>
+          <li><b>Cek feed water</b> — pastikan pasokan air lancar.</li>
+          <li><b>Cek exhaust gas / economizer</b> — jangan sampai overheating.</li>
+          <li><b>Turunkan beban steam</b> — kurangi konsumsi.</li>
+          <li><b>Emergency shutdown</b> — jika tekanan terus naik atau melebihi safety valve set.</li>
+          <li><b>Investigasi</b> — setelah aman, periksa kontrol, burner, safety valve, sensor.</li>
+        </ol>
+        <div class="warn"><b>JANGAN:</b> Menonaktifkan safety valve, memaksa burner tetap firing, atau menutup valve uap secara cepat (bisa menyebabkan pressure spike).</div>`,
+     formula:`<b>Setpoint Umum:</b><br>Working Pressure: 7 bar<br>Safety Valve Set: 7,7 bar (10% over)<br>Alarm High: 6,5 bar<br>Burner Trip: 7,5 bar`,
+     tags:['boiler','keselamatan','prosedur'],
+     links:defaultLinks('boiler high pressure emergency procedure ship')}
+  ]
+},
+
+/* ============ BAGIAN H ============ */
+{
+  id:"H", short:"Sistem Bantu", title:"Sistem Bantu dan Peralatan Kapal", range:"71–80",
+  questions:[
+    {n:71, q:"Apa fungsi Oily Water Separator (OWS)?",
+     a:`<p><b>OWS</b> memisahkan <em>minyak dari air bilga</em> sesuai kemampuan alat dan ketentuan MARPOL Annex I (< 15 ppm).</p>
+        <h4>Cara Kerja</h4>
+        <ol>
+          <li>Air bilga dipompa ke OWS.</li>
+          <li>Gravitasi / coalescer memisahkan minyak.</li>
+          <li>Minyak terkumpul di atas → dibuang ke sludge tank.</li>
+          <li>Air bersih (oil < 15 ppm) dipompa keluar.</li>
+          <li>Oil Content Meter (OCM) memonitor terus-menerus.</li>
+          <li>Jika > 15 ppm → auto-recirculate / alarm.</li>
+        </ol>
+        <div class="note"><b>MARPOL Annex I Reg 14:</b> Wajib OWS + OCM + alarm. Pencatatan di Oil Record Book (ORB) bagian I.</div>`,
+     formula:`<b>MARPOL Limit:</b> Oil content ≤ 15 ppm<br><br><b>Alarm Setpoint:</b> 15 ppm (wajib), biasanya trip di 15 ppm<br><br><b>Efisiensi OWS:</b> (Oil in − Oil out) ÷ Oil in × 100%`,
+     tags:['ows','marpol','formula'],
+     links:defaultLinks('oily water separator MARPOL 15 ppm')},
+
+    {n:72, q:"Apa fungsi sistem Bilge?",
+     a:`<p><b>Sistem Bilge</b> mengumpulkan dan menangani cairan yang terkumpul di bilga (dasar ruang mesin & kompartemen) melalui sistem perpipaan yang dirancang untuk kapal.</p>
+        <h4>Komponen Sistem Bilge</h4>
+        <ul>
+          <li><b>Bilge Well / Bilge Suction</b> — titik hisap.</li>
+          <li><b>Bilge Main Line</b> — pipa utama.</li>
+          <li><b>Bilge Pump</b> — umumnya 2 unit (main + emergency).</li>
+          <li><b>Bilge Distributor Valve Chest</b> — valve manifold.</li>
+          <li><b>Bilge Alarm (High Level)</b> — safety.</li>
+          <li><b>Mud Box / Filter</b> — sebelum pump.</li>
+        </ul>
+        <div class="note"><b>SOLAS Reg II-1/35:</b> Kapal wajib punya 2 bilge pump independen + emergency bilge suction.</div>`,
+     formula:`<b>Kapasitas Bilge Pump:</b> Q = (Kapal Displacement) ÷ (Waktu Yang Diperbolehkan)<br><br>Umumnya mampu memompa seluruh kompartemen dalam 1–3 jam`,
+     tags:['bilge','keselamatan'],
+     links:defaultLinks('ship bilge system SOLAS')},
+
+    {n:73, q:"Apa fungsi Fresh Water Generator?",
+     a:`<p><b>FWG</b> menghasilkan air tawar dari air laut menggunakan proses <em>penguapan dan kondensasi</em> (vacuum distillation) atau reverse osmosis (RO).</p>
+        <h4>Prinsip Vacuum Distillation</h4>
+        <ol>
+          <li>Air laut dipanaskan oleh jacket water mesin (~85°C).</li>
+          <li>Tekanan vakum diturunkan → air menguap pada ~40–60°C.</li>
+          <li>Uap air dipisahkan dari garam.</li>
+          <li>Uap dikondensasi oleh air laut dingin.</li>
+          <li>Air tawar bersih dikumpulkan.</li>
+        </ol>
+        <div class="note"><b>Kapasitas:</b> 5–50 ton/hari. Cukup untuk keperluan awak & boiler makeup.</div>`,
+     formula:`<b>Keseimbangan Energi:</b> Q = ṁ<sub>FW</sub> × h<sub>fg</sub><br><small>h<sub>fg</sub>≈2257 kJ/kg (latent heat of vaporization)</small><br><br><b>Contoh:</b> 20 ton/hari, energy = 20000 × 2257 ÷ 86400 ≈ 522 kW`,
+     tags:['fwg','formula'],
+     links:defaultLinks('fresh water generator ship vacuum distillation')},
+
+    {n:74, q:"Apa fungsi Steering Gear?",
+     a:`<p><b>Steering Gear</b> menggerakkan kemudi (rudder) untuk mengubah arah kapal berdasarkan perintah dari sistem kemudi (bridge).</p>
+        <h4>Jenis Steering Gear</h4>
+        <ul>
+          <li><b>Hydraulic Piston (Rapson Slide)</b> — umum di kapal.</li>
+          <li><b>Rotary Vane</b> — kompak, torsi tinggi.</li>
+          <li><b>Electric</b> — kapal kecil.</li>
+        </ul>
+        <div class="warn"><b>SOLAS:</b> Wajib dual system (2 pompa, 2 cylinder, 2 jalur pipa) + emergency steering + alarm & indikator.</div>`,
+     formula:`<b>Torque Steering Gear:</b> T = P × A × r<br><small>P=tekanan hidrolik, A=luas piston, r=radius arm</small><br><br><b>Sudut Kemudi:</b> 35° kiri/kanan<br><b>Waktu:</b> 65°→35° dalam 28 detik (SOLAS)</small>`,
+     tags:['steering','formula','keselamatan'],
+     links:defaultLinks('steering gear hydraulic ship SOLAS')},
+
+    {n:75, q:"Apa fungsi Hydraulic Pump?",
+     a:`<p><b>Hydraulic Pump</b> mengalirkan fluida hidraulik untuk menghasilkan tenaga dan menggerakkan aktuator (cylinder, motor) pada sistem hidraulik.</p>
+        <h4>Aplikasi di Kapal</h4>
+        <ul>
+          <li>Steering gear.</li>
+          <li>Deck crane & winch.</li>
+          <li>Hatch cover operation.</li>
+          <li>Bow thruster pitch control.</li>
+          <li>CPP (Controllable Pitch Propeller).</li>
+        </ul>`,
+     formula:`<b>Hukum Pascal:</b> F₁÷A₁ = F₂÷A₂<br><br><b>Daya Hidrolik:</b> P = (Q × ΔP) ÷ 600<br><small>Q=L/min, ΔP=bar, P=kW</small><br><br><b>Kecepatan Piston:</b> v = Q ÷ A`,
+     tags:['hidraulik','formula'],
+     links:defaultLinks('hydraulic pump system marine')},
+
+    {n:76, q:"Apa fungsi Sewage Treatment Plant?",
+     a:`<p><b>Sewage Treatment Plant (STP)</b> mengolah air limbah domestik kapal (black water & grey water) sesuai MARPOL Annex IV.</p>
+        <h4>Proses Pengolahan</h4>
+        <ul>
+          <li><b>Biological</b> — bakteri aerob menguraikan organik.</li>
+          <li><b>Chemical</b> — koagulasi + sedimentasi.</li>
+          <li><b>Membrane Bioreactor (MBR)</b> — teknologi modern, kualitas tinggi.</li>
+        </ul>
+        <div class="note"><b>Standar Discharge:</b> BOD < 25 mg/L, TSS < 35 mg/L, Coliform < 100/100 mL.</div>`,
+     formula:`<b>BOD Removal:</b> % = (BOD<sub>in</sub> − BOD<sub>out</sub>) ÷ BOD<sub>in</sub> × 100%<br><br>Tipikal removal: 85–95%`,
+     tags:['stp','marpol'],
+     links:defaultLinks('sewage treatment plant ship MARPOL')},
+
+    {n:77, q:"Apa fungsi Incinerator di kapal?",
+     a:`<p><b>Incinerator</b> membakar <em>jenis limbah tertentu yang diizinkan</em> (sludge oil, garbage, medical waste) sesuai MARPOL Annex VI & Annex V.</p>
+        <h4>Jenis Limbah yang Boleh</h4>
+        <ul>
+          <li><b>Sludge Oil</b> — dari purifier & separator.</li>
+          <li><b>Sludge from bilge separator</b>.</li>
+          <li><b>Garbage</b> — kertas, kain, kardus.</li>
+          <li><b>Medical waste</b> (dengan incinerator khusus).</li>
+        </ul>
+        <div class="warn"><b>DILARANG:</b> Membakar plastik PVC, sisa makanan (kecuali diizinkan), atau sampah organik dalam jumlah besar.</div>`,
+     formula:`<b>Kapasitas Incinerator:</b> 20–200 kg/hari untuk sludge<br><br><b>Suhu Operasi:</b> 850–1200°C untuk pembakaran sempurna`,
+     tags:['incinerator','marpol'],
+     links:defaultLinks('marine incinerator MARPOL Annex VI')},
+
+    {n:78, q:"Apa fungsi Refrigeration System?",
+     a:`<p><b>Refrigeration System</b> mengambil panas dari ruang atau muatan yang didinginkan dan memindahkannya ke lingkungan melalui <em>siklus refrigerasi kompresi uap</em>.</p>
+        <h4>Siklus Refrigerasi</h4>
+        <ol>
+          <li><b>Kompresi</b> — refrigerant dikompresi, tekanan & suhu naik.</li>
+          <li><b>Kondensasi</b> — panas dilepas ke lingkungan, refrigerant menjadi cair.</li>
+          <li><b>Ekspansi</b> — melewati expansion valve, tekanan & suhu turun drastis.</li>
+          <li><b>Evaporasi</b> — refrigerant menyerap panas dari ruang dingin.</li>
+        </ol>
+        <div class="note"><b>Refrigerant:</b> R-404A, R-134a, R-717 (Ammonia), R-744 (CO₂) untuk marine.</div>`,
+     formula:`<b>COP (Coefficient of Performance):</b><br>COP = Q<sub>evap</sub> ÷ W<sub>compressor</sub><br><small>Q=kapasitas pendinginan, W=daya kompresor</small><br><br>Tipikal COP: 2,5–5 (semakin tinggi semakin efisien)<br><br><b>Carnot COP:</b> T<sub>L</sub> ÷ (T<sub>H</sub> − T<sub>L</sub>)`,
+     tags:['refrigerasi','formula'],
+     links:defaultLinks('marine refrigeration system working')},
+
+    {n:79, q:"Apa fungsi HVAC di kapal?",
+     a:`<p><b>HVAC (Heating, Ventilation, and Air Conditioning)</b> mengatur suhu, ventilasi, dan kondisi udara di ruang kapal untuk kenyamanan awak & peralatan.</p>
+        <h4>Komponen HVAC</h4>
+        <ul>
+          <li><b>AHU (Air Handling Unit)</b> — unit pengolah udara.</li>
+          <li><b>Chiller</b> — unit pendingin air.</li>
+          <li><b>Ducting</b> — saluran udara.</li>
+          <li><b>Fan & Damper</b> — pengatur aliran.</li>
+          <li><b>Filter</b> — pembersih udara.</li>
+        </ul>
+        <div class="note"><b>Standar:</b> Suhu kabin 22–26°C, RH 40–60%, 8–12 ACH (Air Changes per Hour).</div>`,
+     formula:`<b>Beban Pendinginan:</b> Q = ṁ<sub>air</sub> × c<sub>p</sub> × ΔT<br><br><b>Air Changes:</b> ACH = (Debit Udara × 3600) ÷ Volume Ruangan<br><br>Tipikal kabin: 8–12 ACH`,
+     tags:['hvac','formula'],
+     links:defaultLinks('marine HVAC system ship')},
+
+    {n:80, q:"Apa fungsi Emergency Generator?",
+     a:`<p><b>Emergency Generator</b> menyediakan daya listrik darurat bagi beban-beban vital ketika sumber listrik utama gagal (blackout).</p>
+        <h4>Beban yang Disuplai Emergency Gen</h4>
+        <ul>
+          <li>Emergency lighting (lifesaving).</li>
+          <li>Navigasi & komunikasi (GMDSS, radar, AIS).</li>
+          <li>Steering gear (salah satu pompa).</li>
+          <li>Fire pump (emergency).</li>
+          <li>Bilge pump (emergency).</li>
+          <li>Watertight door control.</li>
+          <li>Alarm & monitoring system.</li>
+        </ul>
+        <div class="note"><b>SOLAS:</b> Emergency gen wajib start otomatis dalam <b>45 detik</b> setelah blackout, dan dapat beroperasi min. 18 jam (36 jam untuk kapal baru tertentu).</div>`,
+     formula:`<b>Waktu Start:</b> ≤ 45 detik (SOLAS II-1/42)<br><br><b>Kapasitas:</b> 50–300 kW<br><br><b>Autonomy:</b> 18–36 jam tergantung regulasi & tipe kapal`,
+     tags:['emergency','keselamatan','eto'],
+     links:defaultLinks('emergency generator SOLAS ship')}
+  ]
+},
+
+/* ============ BAGIAN I ============ */
+{
+  id:"I", short:"Kontrol & Troubleshoot", title:"Kontrol, Instrumentasi, dan Troubleshooting", range:"81–90",
+  questions:[
+    {n:81, q:"Apa yang dimaksud dengan sistem kontrol otomatis?",
+     a:`<p><b>Sistem Kontrol Otomatis</b> adalah sistem yang <em>memantau variabel proses dan mengatur peralatan</em> berdasarkan setelan, logika, atau algoritma tanpa harus selalu dikendalikan manual.</p>
+        <h4>Komponen Sistem Kontrol</h4>
+        <ul>
+          <li><b>Sensor</b> — mendeteksi variabel (T, P, level, flow).</li>
+          <li><b>Transmitter</b> — mengubah sinyal ke standar (4–20 mA).</li>
+          <li><b>Controller</b> — PID, PLC, DCS.</li>
+          <li><b>Final Element</b> — valve, motor, heater.</li>
+          <li><b>HMI</b> — antarmuka operator.</li>
+        </ul>
+        <div class="note"><b>Standar Sinyal:</b> 4–20 mA (analog), 0–10 V, HART, Profibus, Modbus, Ethernet/IP.</div>`,
+     formula:`<b>Transfer Function:</b> G(s) = Output(s) ÷ Input(s)<br><br><b>Closed Loop:</b> Y = (G × C) ÷ (1 + G × C × H) × R<br><small>G=plant, C=controller, H=feedback</small>`,
+     tags:['kontrol','eto','formula'],
+     links:defaultLinks('ship automation control system PLC')},
+
+    {n:82, q:"Apa fungsi sensor temperatur?",
+     a:`<p><b>Sensor Temperatur</b> mendeteksi temperatur dan memberikan sinyal pengukuran kepada indikator, sistem kontrol, atau alarm.</p>
+        <h4>Jenis Sensor</h4>
+        <ul>
+          <li><b>RTD (PT100, PT1000)</b> — akurasi tinggi, range -200 to 600°C.</li>
+          <li><b>Thermocouple (J, K, T, E)</b> — range luas, cocok untuk exhaust.</li>
+          <li><b>Thermistor</b> — NTC/PTC, sensitif.</li>
+          <li><b>Infrared</b> — non-contact, untuk permukaan.</li>
+        </ul>`,
+     formula:`<b>RTD PT100:</b> R = R<sub>0</sub> × (1 + αT)<br><small>α=0,00385/°C, R<sub>0</sub>=100Ω</small><br><br>Contoh 100°C: R = 100 × (1 + 0,00385×100) = 138,5 Ω<br><br><b>Thermocouple (Type K):</b> ≈ 41 µV/°C`,
+     tags:['instrumentasi','eto','formula'],
+     links:defaultLinks('RTD PT100 thermocouple marine temperature sensor')},
+
+    {n:83, q:"Apa fungsi Pressure Transmitter?",
+     a:`<p><b>Pressure Transmitter</b> mengubah pengukuran tekanan menjadi sinyal standar (4–20 mA, HART) untuk diproses oleh sistem kontrol.</p>
+        <h4>Jenis Pressure Transmitter</h4>
+        <ul>
+          <li><b>Gauge Pressure</b> — relatif terhadap atmosfer.</li>
+          <li><b>Absolute Pressure</b> — relatif terhadap vakum.</li>
+          <li><b>Differential Pressure</b> — selisih dua titik (untuk flow, level, filter DP).</li>
+        </ul>`,
+     formula:`<b>Skala 4–20 mA:</b> I = 4 + (P − P<sub>min</sub>) ÷ (P<sub>max</sub> − P<sub>min</sub>) × 16<br><br>Contoh: Range 0–10 bar, P=6 bar<br>I = 4 + (6−0)÷(10−0) × 16 = 13,6 mA`,
+     tags:['instrumentasi','eto','formula'],
+     links:defaultLinks('pressure transmitter 4-20mA marine')},
+
+    {n:84, q:"Apa perbedaan alarm dan trip?",
+     a:`<h4>Alarm</h4>
+        <p>Memberi <em>peringatan</em> kepada operator mengenai kondisi tertentu — operator harus mengambil tindakan.</p>
+        <ul>
+          <li>Contoh: High temperature alarm 90°C.</li>
+          <li>Bisa Acknowledge / Silence / Reset.</li>
+          <li>Tidak menghentikan mesin.</li>
+        </ul>
+        <h4>Trip</h4>
+        <p>Secara <em>otomatis menghentikan atau memutus operasi</em> peralatan ketika kondisi proteksi terpenuhi.</p>
+        <ul>
+          <li>Contoh: Low LO pressure trip 0,8 bar → engine stop.</li>
+          <li>Proteksi aktif tanpa intervensi operator.</li>
+          <li>Wajib investigasi sebelum restart.</li>
+        </ul>
+        <div class="note"><b>Hirarki:</b> Alarm → Slow Down → Trip → Shutdown</div>`,
+     formula:`<b>Setpoint Hirarki Tipikal:</b><br>Normal < Alarm < Slow Down < Trip < Shutdown<br><br>Contoh LO Pressure:<br>Normal: 3 bar<br>Alarm Low: 2 bar<br>Slow Down: 1,5 bar<br>Trip: 1,0 bar`,
+     tags:['kontrol','keselamatan'],
+     links:defaultLinks('alarm trip marine engine protection')},
+
+    {n:85, q:"Apa fungsi PLC (Programmable Logic Controller)?",
+     a:`<p><b>PLC</b> menjalankan logika kontrol untuk memantau input dan mengendalikan output mesin atau proses industri.</p>
+        <h4>Komponen PLC</h4>
+        <ul>
+          <li><b>CPU</b> — unit pemroses.</li>
+          <li><b>Power Supply</b> — 24 V DC atau 110/220 V AC.</li>
+          <li><b>Digital Input Module</b> — tombol, limit switch, sensor on/off.</li>
+          <li><b>Digital Output Module</b> — relay, solenoid, lampu.</li>
+          <li><b>Analog Input/Output</b> — 4–20 mA, 0–10 V.</li>
+          <li><b>Communication Module</b> — Modbus, Profibus, Ethernet.</li>
+        </ul>
+        <div class="note"><b>Merek Umum di Kapal:</b> Siemens S7, Allen-Bradley, Schneider, Mitsubishi.</div>`,
+     formula:`<b>Scan Cycle:</b> t<sub>scan</sub> = t<sub>input</sub> + t<sub>logic</sub> + t<sub>output</sub><br><small>Tipikal 10–100 ms</small><br><br><b>Boolean Logic:</b> Y = A · B (AND), Y = A + B (OR), Y = A' (NOT)`,
+     tags:['kontrol','eto','formula'],
+     links:defaultLinks('PLC programmable logic controller marine')},
+
+    {n:86, q:"Apa fungsi HMI (Human-Machine Interface)?",
+     a:`<p><b>HMI</b> menyediakan tampilan dan sarana interaksi bagi operator untuk memantau status, nilai proses, alarm, dan perintah.</p>
+        <h4>Fitur HMI</h4>
+        <ul>
+          <li><b>Mimic Diagram</b> — gambar sistem secara real-time.</li>
+          <li><b>Trend</b> — grafik historis parameter.</li>
+          <li><b>Alarm List</b> — daftar & riwayat alarm.</li>
+          <li><b>Setpoint Adjust</b> — penyesuaian parameter.</li>
+          <li><b>Report Generator</b> — laporan periodik.</li>
+        </ul>`,
+     formula:null,
+     tags:['kontrol','eto'],
+     links:defaultLinks('HMI human machine interface ship automation')},
+
+    {n:87, q:"Apa yang dimaksud dengan troubleshooting?",
+     a:`<p><b>Troubleshooting</b> adalah proses <em>sistematis mengidentifikasi gejala, mencari penyebab, memverifikasi kerusakan, dan menentukan tindakan perbaikan</em>.</p>
+        <h4>Metodologi Troubleshooting</h4>
+        <ol>
+          <li><b>Identifikasi Gejala</b> — apa yang tidak normal?</li>
+          <li><b>Kumpulkan Data</b> — parameter, alarm, history.</li>
+          <li><b>Analisa Kemungkinan Penyebab</b> — brainstorming.</li>
+          <li><b>Uji Hipotesa</b> — eliminasi satu per satu.</li>
+          <li><b>Lokalisir Kerusakan</b> — ke komponen spesifik.</li>
+          <li><b>Perbaiki / Ganti</b> — sesuai prosedur.</li>
+          <li><b>Uji Fungsi</b> — pastikan kembali normal.</li>
+          <li><b>Catat & Dokumentasikan</b> — untuk PMS history.</li>
+        </ol>`,
+     formula:`<b>Root Cause Analysis:</b><br>5 Why Method<br>Fishbone Diagram (Ishikawa)<br>FTA (Fault Tree Analysis)`,
+     tags:['troubleshoot'],
+     links:defaultLinks('troubleshooting marine engine systematic method')},
+
+    {n:88, q:"Apa tindakan jika motor pompa mengalami overload?",
+     a:`<h4>Prosedur Penanganan Motor Overload</h4>
+        <ol>
+          <li><b>Safety First</b> — jangan sentuh bagian panas atau bergerak.</li>
+          <li><b>Cek Alarm & Indikator</b> — HMI/panel MCC, thermal overload relay.</li>
+          <li><b>Isolasi Energi (LOTO)</b> — putus breaker, pasang tag, uji tegangan.</li>
+          <li><b>Periksa Beban Mekanis</b> — valve tertutup? impeller macet? bearing rusak?</li>
+          <li><b>Ukur Arus</b> — clamp meter, bandingkan dengan FLA (Full Load Ampere).</li>
+          <li><b>Cek Insulasi</b> — megger test 500 V / 1000 V DC (min 1 MΩ per kV).</li>
+          <li><b>Cek Suplai 3 Fasa</b> — kehilangan fase? tegangan tidak seimbang?</li>
+          <li><b>Cek Bearing & Grease</b> — panas berlebih, suara abnormal.</li>
+          <li><b>Reset & Uji</b> — reset thermal relay, start tanpa beban dulu.</li>
+        </ol>
+        <div class="warn"><b>Jangan:</b> reset berulang kali tanpa investigasi. Ini bisa merusak motor permanen.</div>`,
+     formula:`<b>FLA (Full Load Ampere):</b><br>FLA = (P × 1000) ÷ (√3 × V × η × cos φ)<br><br><b>Contoh:</b> P=15kW, V=440V, η=0,88, cos φ=0,85<br>FLA = 15000 ÷ (1,732 × 440 × 0,88 × 0,85) ≈ 26,3 A<br><br><b>Set Thermal Relay:</b> 1,05 × FLA ≈ 27,6 A`,
+     tags:['listrik','troubleshoot','formula','eto'],
+     links:defaultLinks('electric motor overload protection marine')},
+
+    {n:89, q:"Apa penyebab umum motor listrik bergetar berlebihan?",
+     a:`<h4>Penyebab Getaran Motor Listrik</h4>
+        <ul>
+          <li><b>Mekanis:</b> Ketidaksejajaran poros (misalignment), rotor tidak seimbang, bearing rusak, fondasi longgar, kopling aus.</li>
+          <li><b>Listrik:</b> Kehilangan fase, tegangan tidak seimbang, rotor bar broken, stator winding short.</li>
+          <li><b>Magnetik:</b> Air gap tidak merata, rotor eccentricity, magnetik pull.</li>
+          <li><b>Resonansi:</b> Frekuensi alami sistem ≈ frekuensi eksitasi.</li>
+          <li><b>Beban:</b> Cavitation pada pompa, impeller tidak seimbang, kavitasi.</li>
+        </ul>
+        <div class="note"><b>Deteksi:</b> Vibration analyzer, spectrum analysis untuk identifikasi frekuensi (1X, 2X, BPFO, BPFI).</div>`,
+     formula:`<b>Frekuensi Getaran Karakteristik:</b><br>1X = RPM ÷ 60 (unbalance)<br>2X = 2 × 1X (misalignment)<br>BPFO = Ball Pass Frequency Outer<br><br><b>ISO 10816:</b> Vibration severity zones A/B/C/D`,
+     tags:['listrik','troubleshoot','formula','eto'],
+     links:defaultLinks('electric motor vibration causes analysis')},
+
+    {n:90, q:"Apa yang dimaksud dengan Condition Monitoring?",
+     a:`<p><b>Condition Monitoring</b> adalah pemantauan kondisi peralatan secara berkala atau berkelanjutan menggunakan parameter seperti <em>temperatur, tekanan, getaran, arus, dan kondisi oli</em> untuk mendeteksi tanda kerusakan dini.</p>
+        <h4>Jenis Condition Monitoring</h4>
+        <ul>
+          <li><b>Vibration Analysis</b> — bearing, unbalance, misalignment.</li>
+          <li><b>Thermography</b> — hotspot listrik & mekanik.</li>
+          <li><b>Oil Analysis</b> — wear metal, particle count, viscosity.</li>
+          <li><b>Motor Current Signature Analysis (MCSA)</b> — rotor bar, air gap.</li>
+          <li><b>Ultrasonic</b> — kebocoran udara, bearing awal rusak.</li>
+          <li><b>Performance Monitoring</b> — efisiensi pompa, kompresor.</li>
+        </ul>
+        <div class="note"><b>Pendekatan:</b> Predictive Maintenance (lebih baik dari Preventive & Corrective).</div>`,
+     formula:`<b>Trend:</b> Nilai vs Waktu → deteksi slope kenaikan<br><br><b>Alarm:</b> ISO 10816 vibration zones:<br>A: baik, B: boleh, C: alarm, D: bahaya<br><br><b>Motor Current:</b> I<sub>rms</sub> monitoring + FFT untuk sideband`,
+     tags:['monitoring','troubleshoot','eto'],
+     links:defaultLinks('condition monitoring predictive maintenance marine')}
+  ]
+},
+
+/* ============ BAGIAN J ============ */
+{
+  id:"J", short:"K3 & PMS", title:"Keselamatan Kerja, PMS, dan Efisiensi", range:"91–100",
+  questions:[
+    {n:91, q:"Apa yang dimaksud dengan PMS (Planned Maintenance System)?",
+     a:`<p><b>PMS</b> adalah sistem <em>perencanaan, penjadwalan, pelaksanaan, dan pencatatan pemeliharaan</em> peralatan kapal yang terstruktur dan terdokumentasi.</p>
+        <h4>Manfaat PMS</h4>
+        <ul>
+          <li>Mengurangi breakdown mendadak.</li>
+          <li>Memperpanjang umur peralatan.</li>
+          <li>Memenuhi persyaratan class & flag state.</li>
+          <li>Memudahkan audit & survey.</li>
+          <li>Mengoptimalkan biaya perawatan.</li>
+        </ul>
+        <div class="note"><b>Sistem PMS Umum:</b> AMOS, Sertica, ABS NS5, DNV ShipManager.</div>`,
+     formula:`<b>KPI Maintenance:</b><br>MTBF = Total Uptime ÷ Jumlah Failure<br>MTTR = Total Repair Time ÷ Jumlah Failure<br>Availability = MTBF ÷ (MTBF + MTTR)<br><br>Target: Availability > 95%`,
+     tags:['pms','formula'],
+     links:defaultLinks('planned maintenance system ship PMS')},
+
+    {n:92, q:"Mengapa perawatan mesin harus dilakukan sesuai jadwal?",
+     a:`<h4>Alasan Perawatan Terjadwal</h4>
+        <ul>
+          <li><b>Mengurangi Risiko Kerusakan</b> — degradasi terdeteksi dini.</li>
+          <li><b>Meningkatkan Keandalan</b> — mesin selalu siap operasi.</li>
+          <li><b>Memperpanjang Umur</b> — komponen tidak dipaksa melebihi batas.</li>
+          <li><b>Keselamatan</b> — mencegah kecelakaan akibat kegagalan mesin.</li>
+          <li><b>Efisiensi Biaya</b> — mencegah downtime & biaya darurat.</li>
+          <li><b>Kepatuhan Regulasi</b> — class & flag state requirement.</li>
+          <li><b>Optimasi Konsumsi</b> — mesin bersih & optimal = hemat BBM.</li>
+        </ul>`,
+     formula:`<b>Biaya Perawatan:</b><br>Preventive Cost < Corrective Cost<br><br>Rasio umum: 1 : 5 (preventive murah 5× dari repair)<br><br><b>Downtime Cost</b> = (Lost Revenue + Repair Cost + Idle Crew) × Jam`,
+     tags:['pms'],
+     links:defaultLinks('ship preventive maintenance schedule importance')},
+
+    {n:93, q:"Apa yang dimaksud dengan LOTO (Lockout/Tagout)?",
+     a:`<p><b>LOTO (Lockout/Tagout)</b> adalah prosedur keselamatan untuk <em>mengunci dan memberi tanda pada sumber energi</em> agar peralatan tidak dioperasikan saat pekerjaan pemeliharaan.</p>
+        <h4>Langkah LOTO</h4>
+        <ol>
+          <li><b>Persiapan</b> — identifikasi semua sumber energi.</li>
+          <li><b>Notifikasi</b> — informasikan ke operator.</li>
+          <li><b>Shutdown</b> — matikan peralatan dengan prosedur normal.</li>
+          <li><b>Isolasi</b> — putus breaker, tutup valve, block.</li>
+          <li><b>Lockout</b> — pasang gembok pribadi.</li>
+          <li><b>Tagout</b> — pasang label "DO NOT OPERATE".</li>
+          <li><b>Release Stored Energy</b> — buang sisa tekanan, muatan, gravitasi.</li>
+          <li><b>Verifikasi</b> — test bahwa peralatan benar-benar mati.</li>
+          <li><b>Kerjakan</b> — lakukan maintenance.</li>
+          <li><b>Restore</b> — setelah selesai, lepas lock & tag sesuai urutan.</li>
+        </ol>
+        <div class="warn"><b>Zero Energy State</b> — pastikan semua energi = 0 sebelum bekerja.</div>`,
+     formula:null,
+     tags:['keselamatan','loto','eto'],
+     links:defaultLinks('lockout tagout LOTO procedure marine')},
+
+    {n:94, q:"Mengapa izin kerja (Permit to Work) diperlukan?",
+     a:`<p><b>Permit to Work (PTW)</b> diperlukan untuk memastikan <em>bahaya pekerjaan telah dinilai, pengendalian risiko ditetapkan, dan personel berwenang menyetujui</em> pekerjaan.</p>
+        <h4>Jenis Pekerjaan yang Butuh PTW</h4>
+        <ul>
+          <li>Hot Work (las, gerinda).</li>
+          <li>Confined Space Entry.</li>
+          <li>Working at Height.</li>
+          <li>Electrical Work (HV/LV).</li>
+          <li>Pressure System Work.</li>
+          <li>Overboard / Diving.</li>
+        </ul>
+        <div class="note"><b>Isi PTW:</b> Deskripsi kerja, risiko, pengendalian, APD, durasi, tanda tangan pemberi & penerima izin.</div>`,
+     formula:null,
+     tags:['keselamatan'],
+     links:defaultLinks('permit to work system ship safety')},
+
+    {n:95, q:"Apa yang dimaksud dengan Confined Space?",
+     a:`<p><b>Confined Space</b> adalah ruang terbatas dengan <em>akses keluar-masuk terbatas</em> dan tidak dirancang untuk ditempati terus-menerus, yang dapat memiliki bahaya atmosfer atau bahaya lainnya.</p>
+        <h4>Bahaya Confined Space</h4>
+        <ul>
+          <li><b>Atmosfer:</b> O₂ deficiency (< 19,5%), O₂ enrichment (> 23,5%), gas beracun (H₂S, CO), gas mudah terbakar (LEL > 0%).</li>
+          <li><b>Fisik:</b> Ruang sempit, akses sulit, tergelincir, jatuh.</li>
+          <li><b>Mekanis:</b> Agitator, moving part.</li>
+          <li><b>Kelistrikan:</b> Bahaya kejut.</li>
+          <li><b>Engulfment:</b> Tertimbun material.</li>
+        </ul>
+        <div class="warn"><b>Aturan Emas:</b> TEST → VENTILATE → ENTER → MONITOR. Never enter without permit & standby man.</div>`,
+     formula:`<b>Atmosfer Aman:</b><br>O₂: 19,5–23,5% (ideal 20,9%)<br>LEL: < 1%<br>H₂S: < 5 ppm<br>CO: < 25 ppm<br><br>Test tiap 30 menit atau kontinu monitoring`,
+     tags:['keselamatan','confined','formula'],
+     links:defaultLinks('confined space entry ship safety')},
+
+    {n:96, q:"Apa tindakan sebelum memasuki tangki kapal?",
+     a:`<h4>Persiapan Masuk Tangki (Enclosed Space Entry)</h4>
+        <ol>
+          <li><b>Permit to Work</b> — dapatkan izin resmi dari otoritas berwenang.</li>
+          <li><b>Isolasi</b> — tutup/blind semua line yang terhubung (LOTO).</li>
+          <li><b>Ventilasi</b> — buka hatch, jalankan blower minimal 30 menit.</li>
+          <li><b>Atmosfer Test</b> — oleh personel kompeten: O₂, LEL, H₂S, CO.</li>
+          <li><b>Komunikasi</b> — radio & alarm standby man.</li>
+          <li><b>Standby Man</b> — 1 orang di luar tank, tidak boleh masuk.</li>
+          <li><b>Rescue Plan</b> — prosedur & peralatan penyelamatan siap.</li>
+          <li><b>APD</b> — SCBA, harness, helmet, lampu anti-ledak.</li>
+          <li><b>Monitoring</b> — continuous gas detector.</li>
+          <li><b>Batas Waktu</b> — setiap 30 menit cek kondisi.</li>
+        </ol>
+        <div class="warn"><b>STATISTIK:</b> Banyak korban confined space adalah <em>rescue person</em> yang tidak siap. Jangan pernah masuk tanpa SCBA untuk menolong korban!</div>`,
+     formula:`<b>Ventilasi:</b> ACH = (Flow × 60) ÷ Volume<br><br>Minimal: 20 ACH selama 30 menit<br><br>Contoh: Tank 50 m³, flow 500 m³/h<br>ACH = (500 × 60) ÷ 50 = 600 ACH — good`,
+     tags:['keselamatan','confined'],
+     links:defaultLinks('enclosed space entry procedure ship')},
+
+    {n:97, q:"Apa yang dimaksud dengan efisiensi mesin?",
+     a:`<p><b>Efisiensi Mesin</b> adalah <em>perbandingan energi atau daya keluaran yang berguna terhadap energi atau daya masukan</em>, dinyatakan sebagai persentase.</p>
+        <h4>Jenis-jenis Efisiensi</h4>
+        <ul>
+          <li><b>Thermal Efficiency</b> — energi bahan bakar → kerja.</li>
+          <li><b>Mechanical Efficiency</b> — indikator power → brake power.</li>
+          <li><b>Volumetric Efficiency</b> — udara masuk vs ideal.</li>
+          <li><b>Propulsive Efficiency</b> — brake power → effective thrust.</li>
+          <li><b>Overall Efficiency</b> — fuel → kapal bergerak.</li>
+        </ul>`,
+     formula:`<b>Efisiensi Umum:</b><br>η = (P<sub>keluaran</sub> ÷ P<sub>masukan</sub>) × 100%<br><br><b>Thermal:</b> η<sub>th</sub> = Brake Power ÷ (ṁ<sub>fuel</sub> × LHV)<br><br><b>Contoh:</b> P=7500 kW, fuel=1500 kg/h, LHV=42700 kJ/kg<br>η<sub>th</sub> = 7500 ÷ (1500÷3600 × 42700) = 42,1%`,
+     tags:['efisiensi','formula'],
+     links:defaultLinks('diesel engine efficiency marine calculation')},
+
+    {n:98, q:"Mengapa konsumsi bahan bakar spesifik perlu dipantau?",
+     a:`<p><b>SFOC (Specific Fuel Oil Consumption)</b> adalah indikator utama efisiensi bahan bakar, dinyatakan dalam <em>gram per kilowatt-jam (g/kWh)</em>.</p>
+        <h4>Nilai SFOC Tipikal</h4>
+        <ul>
+          <li><b>Main Engine 2-stroke</b> — 160–180 g/kWh.</li>
+          <li><b>Auxiliary Engine 4-stroke</b> — 180–220 g/kWh.</li>
+          <li><b>Kenaikan 5%</b> → indikasi masalah.</li>
+        </ul>
+        <h4>Manfaat Pemantauan SFOC</h4>
+        <ul>
+          <li>Deteksi dini penurunan performa mesin.</li>
+          <li>Optimasi kecepatan kapal (slow steaming).</li>
+          <li>Perbandingan bahan bakar (HFO vs MGO).</li>
+          <li>Dasar CII & EEXI compliance (IMO decarbonization).</li>
+        </ul>`,
+     formula:`<b>SFOC:</b><br>SFOC = (ṁ<sub>fuel</sub> × 1000) ÷ P<sub>brake</sub><br><small>ṁ<sub>fuel</sub> dalam kg/h, P dalam kW, hasil g/kWh</small><br><br><b>Contoh:</b> 1500 kg/h ÷ 8000 kW × 1000 = 187,5 g/kWh<br><br><b>EEDI:</b> g CO₂ per ton-mile`,
+     tags:['efisiensi','formula','eto'],
+     links:defaultLinks('SFOC specific fuel oil consumption ship')},
+
+    {n:99, q:"Apa yang dimaksud dengan Redundancy pada sistem kapal?",
+     a:`<p><b>Redundancy</b> adalah penyediaan <em>komponen atau sistem cadangan</em> agar fungsi penting tetap berjalan ketika komponen utama gagal.</p>
+        <h4>Jenis Redundancy</h4>
+        <ul>
+          <li><b>Active Redundancy</b> — komponen cadangan aktif (load sharing).</li>
+          <li><b>Standby Redundancy</b> — cadangan siaga, start saat dibutuhkan.</li>
+          <li><b>Hot Standby</b> — cadangan berjalan parallel.</li>
+          <li><b>Cold Standby</b> — cadangan dimatikan, diaktifkan saat perlu.</li>
+          <li><b>N+1</b> — 1 cadangan untuk N unit.</li>
+          <li><b>2N</b> — 100% cadangan penuh.</li>
+        </ul>
+        <div class="note"><b>Contoh Redundancy di Kapal:</b> Dual generator, dual steering pump, dual cooling pump, dual LO pump, dual bilge pump, dual bus bar, dual power supply (main + emergency gen).</div>`,
+     formula:`<b>Reliabilitas Paralel:</b> R<sub>system</sub> = 1 − (1 − R<sub>1</sub>) × (1 − R<sub>2</sub>)<br><br>Contoh: R<sub>1</sub>=R<sub>2</sub>=0,9 → R<sub>sys</sub> = 1 − 0,1 × 0,1 = 0,99<br><br><b>MTBF System</b> meningkat signifikan dengan redundancy`,
+     tags:['redundancy','formula','eto'],
+     links:defaultLinks('redundancy ship system design SOLAS')},
+
+    {n:100, q:"Apa peran ETO dalam menjaga keandalan operasional permesinan kapal?",
+     a:`<p><b>ETO</b> berperan sentral dalam menjaga keandalan sistem listrik, elektronik, kontrol, dan otomasi kapal, sehingga permesinan dapat beroperasi aman & efisien.</p>
+        <h4>Peran Utama ETO</h4>
+        <ul>
+          <li><b>Monitoring</b> — pantau parameter listrik & alarm, tren.</li>
+          <li><b>Maintenance</b> — sesuai PMS, insulasi test, megger, thermography, kalibrasi.</li>
+          <li><b>Troubleshooting</b> — diagnosa gangguan listrik & kontrol.</li>
+          <li><b>Analisa Alarm</b> — identifikasi & respons cepat.</li>
+          <li><b>Testing & Commissioning</b> — uji fungsi sistem baru.</li>
+          <li><b>Dokumentasi</b> — update wiring diagram, as-built.</li>
+          <li><b>Koordinasi</b> — dengan Chief Engineer, 2/E, 3/E, Electrician.</li>
+          <li><b>Kepatuhan</b> — SOLAS, MARPOL, STCW, class rules.</li>
+          <li><b>Pelatihan</b> — train junior & crew terkait.</li>
+        </ul>
+        <h4>Keterampilan Kunci ETO</h4>
+        <ul>
+          <li>Electrical & electronics (analog + digital).</li>
+          <li>PLC, HMI, SCADA programming.</li>
+          <li>Instrumentation & control loop tuning.</li>
+          <li>Power system analysis & protection.</li>
+          <li>Reading wiring diagram & P&ID.</li>
+          <li>Safety procedures (LOTO, PTW).</li>
+        </ul>
+        <div class="note"><b>Peran Strategis:</b> Dengan otomasi & digitalisasi kapal modern (smart ship, IoT), ETO semakin penting sebagai <em>penghubung antara sistem mekanik dan sistem elektronik</em>.</div>`,
+     formula:`<b>KPI ETO:</b><br>Uptime Sistem Elektrik (%)<br>Jumlah Alarm Bulanan<br>Mean Time To Repair (MTTR)<br>Insulation Resistance Trend<br>Jumlah Preventive Maintenance Done ÷ Scheduled`,
+     tags:['eto','formula','karir'],
+     links:defaultLinks('Electro Technical Officer ETO duties ship STCW III/6')}
+  ]
+}
+];
+
+/* =========================================================
+   EXTRA TASKS
+   ========================================================= */
+const EXTRA_TASKS = [
+  {t:"Pilih 5 peralatan di kamar mesin kapal dan jelaskan nama, fungsi, serta prinsip kerjanya (sertakan sketsa sederhana)."},
+  {t:"Buat daftar 10 istilah teknis bahasa Inggris beserta arti bahasa Indonesianya (contoh: cylinder liner → liner silinder)."},
+  {t:"Pilih satu sistem (pendingin / pelumasan / bahan bakar). Jelaskan urutan alirannya berdasarkan diagram sistem yang benar (P&ID)."},
+  {t:"Buat satu contoh gangguan mesin: gejala yang muncul, kemungkinan penyebab, dan langkah pemeriksaan yang aman (sertakan diagnosis flow chart)."},
+  {t:"Jelaskan hubungan pekerjaan ETO dengan operasional mesin induk, generator, pompa, sensor, alarm, dan sistem kontrol."},
+  {t:"Hitung efisiensi termal mesin diesel bila diketahui: daya output 7500 kW, konsumsi bahan bakar 1500 kg/h, LHV bahan bakar 42.700 kJ/kg."}
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+const ALL = [];
+SECTIONS.forEach(s => s.questions.forEach(q => ALL.push({...q, secId:s.id, secTitle:s.title})));
+const TOTAL = ALL.length;
+const opened = new Set(JSON.parse(localStorage.getItem('eto_opened_v2') || '[]'));
+let currentSection = SECTIONS[0].id;
+let currentList = [];
+let currentIdx = 0;
+const $ = id => document.getElementById(id);
+
+/* =========================================================
+   RENDER NAV
+   ========================================================= */
+function renderNav(){
+  const nav = $('navbar'); nav.innerHTML = '';
+  SECTIONS.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'nav-item' + (s.id===currentSection?' active':'');
+    b.dataset.id = s.id;
+    b.innerHTML = `<span class="letter">${s.id}</span> ${s.short}`;
+    b.onclick = () => selectSection(s.id);
+    nav.appendChild(b);
+  });
+}
+function selectSection(id){
+  currentSection = id;
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.toggle('active', n.dataset.id===id));
+  renderMain(); updateStats();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* =========================================================
+   RENDER MAIN
+   ========================================================= */
+function renderMain(){
+  const main = $('main'); main.innerHTML = '';
+  const query = ($('search').value || '').toLowerCase().trim();
+
+  if(currentSection === 'EXTRA'){
+    const head = document.createElement('div');
+    head.className = 'section-head';
+    head.innerHTML = `<div class="kicker">Tugas Praktik</div><h2>Tugas Tambahan untuk Taruna</h2><div class="count">6 kegiatan yang harus dikerjakan setelah menyelesaikan 100 soal</div>`;
+    main.appendChild(head);
+    const wrap = document.createElement('div');
+    wrap.className = 'task-list';
+    EXTRA_TASKS.forEach((x,i)=>{
+      const d = document.createElement('div');
+      d.className = 'task-item';
+      d.innerHTML = `<h4><span class="n">${i+1}</span> Kegiatan ${i+1}</h4><p>${x.t}</p>`;
+      wrap.appendChild(d);
+    });
+    const note = document.createElement('div');
+    note.className = 'task-item';
+    note.style.marginTop = '18px';
+    note.style.borderLeftColor = 'var(--gold)';
+    note.innerHTML = `
+      <h4 style="color:var(--gold)">📝 Format Pengumpulan</h4>
+      <p>Nama taruna, NIT, kelas, mata kuliah, jawaban, dan kesimpulan pembelajaran.</p>
+      <p style="margin-top:10px;color:var(--muted);font-size:12.5px">
+        <b style="color:var(--gold)">Dosen Pengampu:</b> Rafael Sukirno, CE<br>
+        <b style="color:var(--gold)">Catatan:</b> Jawaban di atas merupakan bahan belajar dasar.
+        Pengoperasian dan perawatan nyata wajib mengikuti manual pabrikan, prosedur keselamatan kapal,
+        kewenangan personel, serta ketentuan maritim yang berlaku.
+      </p>`;
+    wrap.appendChild(note);
+    main.appendChild(wrap);
+    currentList = [];
+    return;
+  }
+
+  const sec = SECTIONS.find(s=>s.id===currentSection);
+  let list = sec.questions;
+  if(query){
+    list = list.filter(q =>
+      q.q.toLowerCase().includes(query) ||
+      String(q.n).includes(query) ||
+      (q.a||'').toLowerCase().replace(/<[^>]+>/g,' ').includes(query) ||
+      (q.formula||'').toLowerCase().includes(query) ||
+      (q.tags||[]).join(' ').toLowerCase().includes(query)
+    );
+  }
+
+  const head = document.createElement('div');
+  head.className = 'section-head';
+  head.innerHTML = `<div class="kicker">Bagian ${sec.id} · Soal ${sec.range}</div><h2>${sec.title}</h2><div class="count">${list.length} soal ditampilkan${query?' (hasil pencarian)':''} · klik kartu untuk melihat jawaban & referensi</div>`;
+  main.appendChild(head);
+
+  if(!list.length){
+    const e = document.createElement('div');
+    e.className = 'empty-hint';
+    e.innerHTML = `<span class="icon">🔎</span>Tidak ada soal yang cocok dengan pencarian "<b>${query}</b>".`;
+    main.appendChild(e);
+    currentList = [];
+    return;
+  }
+
+  currentList = list.map(q => ({...q, secId:sec.id}));
+
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  list.forEach((q, i)=>{
+    const card = document.createElement('button');
+    card.className = 'qcard';
+    card.type = 'button';
+    const done = opened.has(q.n);
+    let tagsHtml = '';
+    (q.tags||[]).forEach(t=>{
+      const cls = t==='formula'?'formula':(t==='eto'?'eto':'');
+      tagsHtml += `<span class="tag ${cls}">#${t}</span>`;
+    });
+    card.innerHTML = `
+      <span class="num">SOAL #${q.n} ${done?'✓':''}</span>
+      <span class="qtext">${q.q}</span>
+      ${tagsHtml ? `<span class="tags">${tagsHtml}</span>` : ''}
+      <span class="hint">${done?'Sudah dibuka · buka lagi':'Klik untuk jawaban + referensi'}</span>`;
+    card.onclick = () => openModal(i);
+    grid.appendChild(card);
+  });
+  main.appendChild(grid);
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+function updateStats(){
+  const sec = SECTIONS.find(s=>s.id===currentSection);
+  const statNow = $('stat-now'), statCount = $('stat-count'), bar = $('stat-bar'), label = $('stat-label');
+  if(currentSection === 'EXTRA'){
+    statNow.textContent = 'Tugas Tambahan';
+    statCount.textContent = EXTRA_TASKS.length + ' kegiatan';
+  } else {
+    statNow.textContent = 'Bagian ' + sec.id;
+    statCount.textContent = sec.questions.length + ' soal';
+  }
+  const pct = (opened.size / TOTAL) * 100;
+  bar.style.width = pct.toFixed(1) + '%';
+  label.textContent = `${opened.size} / ${TOTAL} soal dibuka`;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+const modal = $('modal');
+function openModal(idx){
+  if(idx < 0 || idx >= currentList.length) return;
+  currentIdx = idx;
+  const item = currentList[idx];
+
+  $('m-num').textContent = 'Soal #' + item.n;
+  $('m-sec').textContent = 'Bagian ' + item.secId;
+  $('m-q').innerHTML = item.q;
+  // Jawaban + formula
+  let aHtml = item.a || '';
+  if(item.formula){
+    aHtml += `<div class="formula-box">${item.formula}</div>`;
+  }
+  $('m-a').innerHTML = aHtml;
+  $('m-prog').textContent = `${idx+1} / ${currentList.length}`;
+  $('m-prev').disabled = idx === 0;
+  $('m-next').disabled = idx === currentList.length - 1;
+
+  // LINKS
+  const linkGrid = $('m-links');
+  linkGrid.innerHTML = '';
+  const q = item.q.replace(/[?？]/g,'').substring(0,80);
+  const links = item.links || defaultLinks(q);
+  links.forEach(lk => {
+    let url, label, ic, icCls;
+    if(lk.type === 'google'){ url = gLink(lk.q); label = lk.label || 'Google Search'; ic = '🔍'; icCls = 'google'; }
+    else if(lk.type === 'youtube'){ url = yLink(lk.q); label = lk.label || 'YouTube'; ic = '▶'; icCls = 'youtube'; }
+    else if(lk.type === 'pinterest'){ url = pLink(lk.q); label = lk.label || 'Pinterest'; ic = '📌'; icCls = 'pinterest'; }
+    else if(lk.type === 'image'){ url = iLink(lk.q); label = lk.label || 'Google Images'; ic = '🖼'; icCls = 'image'; }
+    else if(lk.type === 'wiki'){ url = wLink(lk.q); label = lk.label || 'Wikipedia'; ic = '📖'; icCls = 'wiki'; }
+    else { url = gLink(lk.q); label = lk.label || 'Google'; ic = '🔗'; icCls = 'google'; }
+    const a = document.createElement('a');
+    a.className = 'ext-link';
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML = `<span class="ic ${icCls}">${ic}</span><span class="tx">${label}<small>Buka di tab baru</small></span>`;
+    linkGrid.appendChild(a);
+  });
+  // Tambah tombol Google custom pencarian seluruh keyword
+  const customA = document.createElement('a');
+  customA.className = 'ext-link';
+  customA.href = gLink(q + ' marine engineering');
+  customA.target = '_blank';
+  customA.rel = 'noopener noreferrer';
+  customA.innerHTML = `<span class="ic google">🌐</span><span class="tx">Cari Lebih Dalam<small>Google · "marine engineering"</small></span>`;
+  linkGrid.appendChild(customA);
+
+  showTab('q');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  if(!opened.has(item.n)){
+    opened.add(item.n);
+    localStorage.setItem('eto_opened_v2', JSON.stringify([...opened]));
+    updateStats();
+    const cards = document.querySelectorAll('.qcard');
+    const numTag = cards[idx]?.querySelector('.num');
+    if(numTag) numTag.innerHTML = `SOAL #${item.n} ✓`;
+    const hint = cards[idx]?.querySelector('.hint');
+    if(hint) hint.textContent = 'Sudah dibuka · buka lagi';
+  }
+}
+function closeModal(){ modal.classList.remove('open'); document.body.style.overflow=''; }
+function showTab(which){
+  const qBtn = $('tab-q-btn'), aBtn = $('tab-a-btn'), lBtn = $('tab-l-btn');
+  const qView = $('view-q'), aView = $('view-a'), lView = $('view-l');
+  [qBtn,aBtn,lBtn].forEach(b=>b.classList.remove('active'));
+  [qView,aView,lView].forEach(v=>v.style.display='none');
+  if(which === 'q'){ qBtn.classList.add('active'); qView.style.display=''; }
+  else if(which === 'a'){ aBtn.classList.add('active'); aView.style.display=''; }
+  else { lBtn.classList.add('active'); lView.style.display=''; }
+}
+
+/* EVENTS */
+$('tab-q-btn').onclick = () => showTab('q');
+$('tab-a-btn').onclick = () => showTab('a');
+$('tab-l-btn').onclick = () => showTab('l');
+$('m-close').onclick = closeModal;
+$('backdrop').onclick = closeModal;
+$('m-prev').onclick = () => openModal(currentIdx - 1);
+$('m-next').onclick = () => openModal(currentIdx + 1);
+document.addEventListener('keydown', e => {
+  if(!modal.classList.contains('open')) return;
+  if(e.key === 'Escape') closeModal();
+  if(e.key === 'ArrowLeft') openModal(currentIdx - 1);
+  if(e.key === 'ArrowRight') openModal(currentIdx + 1);
+  if((e.key === ' ' || e.key === 'Enter') && document.activeElement.tagName !== 'INPUT'){
+    e.preventDefault();
+    const cur = $('tab-a-btn').classList.contains('active') ? 'q' :
+                $('tab-l-btn').classList.contains('active') ? 'q' : 'a';
+    showTab(cur);
+  }
+});
+$('search').addEventListener('input', renderMain);
+$('btn-reset').onclick = () => {
+  if(confirm('Reset semua progres soal yang sudah dibuka?')){
+    opened.clear();
+    localStorage.removeItem('eto_opened_v2');
+    renderMain(); updateStats();
+  }
+};
+
+/* EXTRA NAV */
+function addExtraNav(){
+  const nav = $('navbar');
+  const b = document.createElement('button');
+  b.className = 'nav-item'; b.id = 'nav-extra';
+  b.innerHTML = `<span class="letter">★</span> Tugas Tambahan`;
+  b.onclick = () => {
+    currentSection = 'EXTRA';
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    b.classList.add('active');
+    renderMain(); updateStats();
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+  nav.appendChild(b);
+}
+
+/* INIT */
+renderNav();
+addExtraNav();
+renderMain();
+updateStats();
+</script>
+</body>
+</html>
